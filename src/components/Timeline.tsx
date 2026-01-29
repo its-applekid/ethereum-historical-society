@@ -6,7 +6,7 @@ import { EraMarker } from './EraMarker'
 interface TimelineProps {
   nodes: TimelineNode[]
   onSelectNode: (node: TimelineNode) => void
-  selectedNodeId?: string
+  selectedNodeId: string | undefined
 }
 
 export function Timeline({ nodes, onSelectNode, selectedNodeId }: TimelineProps) {
