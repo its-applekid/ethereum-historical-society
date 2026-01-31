@@ -1,105 +1,98 @@
 import { useState, useRef, useEffect } from 'react'
 
-interface AudioTrack {
-  id: string
-  name: string
-  artist: string
-  url: string
-  era?: string // Which era this track fits best
-}
-
-// Placeholder tracks - would be replaced with actual licensed music
-// Cyberpunk/synthwave aesthetic as mentioned in VISION.md
-const TRACKS: AudioTrack[] = [
-  {
-    id: 'ambient-1',
-    name: 'Genesis',
-    artist: 'Ambient',
-    url: '/audio/genesis.mp3',
-    era: 'frontier',
-  },
-  {
-    id: 'synthwave-1',
-    name: 'Proof of Work',
-    artist: 'Synthwave',
-    url: '/audio/pow.mp3',
-    era: 'homestead',
-  },
-  {
-    id: 'cyberpunk-1',
-    name: 'The Merge',
-    artist: 'Cyberpunk Runner',
-    url: '/audio/merge.mp3',
-    era: 'merge',
-  },
-]
+// YouTube video ID for "The Cyberpunk Runner" by Yuri Petrovski
+const YOUTUBE_VIDEO_ID = 'ja36Fe-m60k'
 
 interface AudioPlayerProps {
-  /** Current era for era-appropriate music */
-  currentEra?: string
   /** Whether audio is enabled by default */
   autoPlay?: boolean
 }
 
-export function AudioPlayer({ currentEra, autoPlay = false }: AudioPlayerProps) {
+export function AudioPlayer({ autoPlay = false }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(autoPlay)
-  const [volume, setVolume] = useState(0.3) // Low default volume
-  const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null)
-  const [showControls, setShowControls] = useState(false)
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const playerRef = useRef<any>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  // Select track based on era
+  // Load YouTube IFrame API
   useEffect(() => {
-    const track = TRACKS.find(t => t.era === currentEra) || TRACKS[0]
-    if (track !== currentTrack) {
-      setCurrentTrack(track)
+    if (window.YT) {
+      setIsLoaded(true)
+      return
     }
-  }, [currentEra])
+
+    const tag = document.createElement('script')
+    tag.src = 'https://www.youtube.com/iframe_api'
+    const firstScriptTag = document.getElementsByTagName('script')[0]
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag)
+
+    window.onYouTubeIframeAPIReady = () => {
+      setIsLoaded(true)
+    }
+  }, [])
+
+  // Initialize player when API is loaded
+  useEffect(() => {
+    if (!isLoaded || !containerRef.current || playerRef.current) return
+
+    playerRef.current = new window.YT.Player('yt-player', {
+      height: '0',
+      width: '0',
+      videoId: YOUTUBE_VIDEO_ID,
+      playerVars: {
+        autoplay: 0,
+        loop: 1,
+        playlist: YOUTUBE_VIDEO_ID, // Required for loop to work
+      },
+      events: {
+        onReady: () => {
+          if (playerRef.current) {
+            playerRef.current.setVolume(30) // 30% volume
+          }
+        },
+        onStateChange: (event: { data: number }) => {
+          if (event.data === window.YT.PlayerState.ENDED) {
+            // Restart for seamless loop
+            playerRef.current?.playVideo()
+          }
+        },
+      },
+    })
+  }, [isLoaded])
 
   // Handle play/pause
   useEffect(() => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.play().catch(() => {
-          // Autoplay blocked - need user interaction
-          setIsPlaying(false)
-        })
-      } else {
-        audioRef.current.pause()
-      }
+    if (!playerRef.current) return
+    
+    if (isPlaying) {
+      playerRef.current.playVideo()
+    } else {
+      playerRef.current.pauseVideo()
     }
-  }, [isPlaying, currentTrack])
-
-  // Handle volume
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume
-    }
-  }, [volume])
+  }, [isPlaying])
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying)
   }
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume(parseFloat(e.target.value))
+  const setVolume = (volume: number) => {
+    if (playerRef.current) {
+      playerRef.current.setVolume(volume * 100)
+    }
   }
 
   return (
     <div 
       className="fixed bottom-4 left-4 z-50"
-      onMouseEnter={() => setShowControls(true)}
-      onMouseLeave={() => setShowControls(false)}
+      onMouseEnter={() => setIsExpanded(true)}
+      onMouseLeave={() => setIsExpanded(false)}
     >
-      {/* Hidden audio element */}
-      {currentTrack && (
-        <audio
-          ref={audioRef}
-          src={currentTrack.url}
-          loop
-          preload="none"
-        />
-      )}
+      {/* Hidden YouTube player */}
+      <div ref={containerRef} className="hidden">
+        <div id="yt-player" />
+      </div>
 
       {/* Main play button */}
       <button
@@ -114,16 +107,14 @@ export function AudioPlayer({ currentEra, autoPlay = false }: AudioPlayerProps) 
           hover:scale-110 hover:shadow-lg
           border border-[var(--bg-tertiary)]
         `}
-        title={isPlaying ? 'Pause music' : 'Play ambient music'}
+        title={isPlaying ? 'Pause music' : 'Play "The Cyberpunk Runner" by Yuri Petrovski'}
       >
         {isPlaying ? (
-          // Pause icon
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <rect x="6" y="4" width="4" height="16" />
             <rect x="14" y="4" width="4" height="16" />
           </svg>
         ) : (
-          // Play icon with musical note
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
           </svg>
@@ -131,28 +122,26 @@ export function AudioPlayer({ currentEra, autoPlay = false }: AudioPlayerProps) 
       </button>
 
       {/* Expanded controls */}
-      {showControls && (
+      {isExpanded && (
         <div 
           className={`
             absolute bottom-14 left-0 
             bg-[var(--bg-secondary)] rounded-lg p-3
             border border-[var(--bg-tertiary)]
             shadow-xl
-            min-w-[180px]
+            min-w-[200px]
             transition-opacity duration-200
           `}
         >
           {/* Track info */}
-          {currentTrack && (
-            <div className="mb-3">
-              <div className="text-sm font-medium text-[var(--text-primary)]">
-                {currentTrack.name}
-              </div>
-              <div className="text-xs text-[var(--text-muted)]">
-                {currentTrack.artist}
-              </div>
+          <div className="mb-3">
+            <div className="text-sm font-medium text-[var(--text-primary)]">
+              The Cyberpunk Runner
             </div>
-          )}
+            <div className="text-xs text-[var(--text-muted)]">
+              Yuri Petrovski
+            </div>
+          </div>
 
           {/* Volume slider */}
           <div className="flex items-center gap-2">
@@ -164,23 +153,54 @@ export function AudioPlayer({ currentEra, autoPlay = false }: AudioPlayerProps) 
               min="0"
               max="1"
               step="0.1"
-              value={volume}
-              onChange={handleVolumeChange}
+              defaultValue={0.3}
+              onChange={(e) => setVolume(parseFloat(e.target.value))}
               className="flex-1 h-1 rounded-lg appearance-none bg-[var(--bg-tertiary)] cursor-pointer"
-              style={{
-                background: `linear-gradient(to right, var(--eth-purple) ${volume * 100}%, var(--bg-tertiary) ${volume * 100}%)`,
-              }}
             />
           </div>
 
-          {/* Track selection (future) */}
+          {/* YouTube link */}
           <div className="mt-3 pt-3 border-t border-[var(--bg-tertiary)]">
-            <div className="text-xs text-[var(--text-muted)]">
-              ♪ Era-adaptive soundtrack
-            </div>
+            <a 
+              href={`https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[var(--text-muted)] hover:text-[var(--eth-purple)] flex items-center gap-1"
+            >
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+              </svg>
+              Listen on YouTube
+            </a>
           </div>
         </div>
       )}
     </div>
   )
+}
+
+// TypeScript declarations for YouTube IFrame API
+declare global {
+  interface Window {
+    YT: {
+      Player: new (elementId: string, config: {
+        height: string
+        width: string
+        videoId: string
+        playerVars?: Record<string, number | string>
+        events?: {
+          onReady?: () => void
+          onStateChange?: (event: { data: number }) => void
+        }
+      }) => {
+        playVideo: () => void
+        pauseVideo: () => void
+        setVolume: (volume: number) => void
+      }
+      PlayerState: {
+        ENDED: number
+      }
+    }
+    onYouTubeIframeAPIReady: () => void
+  }
 }

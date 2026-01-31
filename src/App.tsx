@@ -55,8 +55,8 @@ function App() {
     <div className="min-h-screen bg-[var(--bg-primary)]">
       <Header />
 
-      {/* Audio player */}
-      <AudioPlayer currentEra={currentEra} />
+      {/* Audio player - Yuri Petrovski's "The Cyberpunk Runner" */}
+      <AudioPlayer />
       
       <main className="relative" ref={timelineRef}>
         {/* L2 chains background visualization */}
