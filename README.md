@@ -1,65 +1,43 @@
-# Ethereum Historical Society 🏛️⛓️
+# Ethereum Historical Society 📜
 
-An educational, historical, and artistic journey through Ethereum's evolution — from genesis to present.
+An interactive timeline exploring Ethereum's evolution from whitepaper to world computer.
 
-## Vision
+## Live Demo
 
-A timeline experience that:
-- **Educates** — What is Ethereum and why does it matter?
-- **Documents** — The design evolution and tradeoffs over 10+ years
-- **Inspires** — An art piece that makes blockchain history tangible
+**🌐 https://its-applekid.github.io/ethereum-historical-society/**
 
-The timeline is indexed by **block numbers**, not just dates — reinforcing that the blockchain *is* a clock.
+## Features
 
-[Read the full vision →](./VISION.md)
+- Interactive timeline of major Ethereum milestones
+- Key events from 2013 whitepaper to present day
+- Covers forks, upgrades, and pivotal moments
+- Clean, responsive design
 
-## Features (Planned)
+## Timeline Highlights
 
-- 📜 **Historical Timeline** — Hard forks, EIPs, and milestones anchored to blocks
-- 🔄 **Live Block Feed** — Scroll to the bottom and watch blocks being added
-- 🏷️ **Tag Filtering** — Focus on protocol, DeFi, NFT, social, or the full experience
-- 🎬 **"On Rails" Mode** — Click play and watch Ethereum evolve
-- 💬 **AI Chat** — Ask questions about the history
-- 🎵 **Ambient Soundtrack** — Cyberpunk vibes for the journey
+- 📄 2013: Vitalik's Whitepaper
+- 🚀 2015: Frontier Launch
+- 💔 2016: The DAO Hack & Fork
+- 🔥 2021: EIP-1559 & Fee Burn
+- 🌿 2022: The Merge (Proof of Stake)
+- And more...
 
 ## Tech Stack
 
-- **Backend:** Rust (Axum/Actix)
-- **Frontend:** Vue + TypeScript + Tailwind + shadcn
-- **Data:** EIPs, ethereum/pm, hard fork specs, social archives
-
-## Data Sources
-
-- [ethereum/EIPs](https://github.com/ethereum/EIPs) — Improvement proposals
-- [ethereum/pm](https://github.com/ethereum/pm) — AllCoreDevs notes, upgrade archives
-- Hard fork block numbers — Genesis through Dencun
-- Vitalik's blog, DevCon talks, key tweets (curated)
-
-[See full data source inventory →](./DATA_SOURCES.md)
+- React + TypeScript + Vite
+- Deployed to GitHub Pages
 
 ## Development
 
 ```bash
-# Coming soon - scaffolding in progress
+npm install
+npm run dev
 ```
 
-## Structure
+## Deployment
 
-```
-├── VISION.md          # Full project vision
-├── DATA_SOURCES.md    # Data source inventory
-├── data/
-│   └── hard-forks.json    # Hard fork milestones
-└── src/
-    ├── types.ts           # Core type definitions
-    ├── block-utils.ts     # Timestamp ↔ block conversion
-    └── fetch-eips.ts      # EIP fetcher script
-```
-
-## License
-
-MIT
+Automatically deploys on push to `main` via GitHub Actions.
 
 ---
 
-*Built with 🍎 by [Applekid](https://github.com/its-applekid) and [Everdred](https://github.com/its-everdred)*
+Built by [Applekid](https://github.com/its-applekid) 🍎
