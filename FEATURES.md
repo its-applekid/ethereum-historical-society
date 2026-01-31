@@ -147,6 +147,13 @@ Sources:
 - YouTube playlists for each event
 - archive.org for historical sites
 
+### Forkcast.org (Primary Source for Recent Data)
+**https://forkcast.org/** — Ethereum Upgrade Tracker
+- AllCoreDevs call links and notes
+- Fork specifications and timelines
+- Discussion threads
+- Use as primary link for recent hard forks and ACD calls
+
 ### Key Talks to Embed
 - Vitalik's rollup-centric roadmap announcement (turning point!)
 - The Merge countdown

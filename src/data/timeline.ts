@@ -421,7 +421,13 @@ export const TIMELINE_DATA: TimelineNode[] = [
     era: 'shanghai',
     importance: 'major',
     relatedEips: [3651, 3855, 3860, 4895],
-    content: `Shapella finally enabled staking withdrawals, completing the PoS transition. EIP-4895 allowed validators to withdraw their staked ETH and rewards. Contrary to fears, this didn't cause a mass exodus.`
+    content: `Shapella finally enabled staking withdrawals, completing the PoS transition. EIP-4895 allowed validators to withdraw their staked ETH and rewards. Contrary to fears, this didn't cause a mass exodus.`,
+    tags: ['protocol'],
+    links: [
+      { label: 'Forkcast: Shanghai', url: 'https://forkcast.org/' },
+      { label: 'Etherscan Block', url: 'https://etherscan.io/block/17034870' },
+      { label: 'ethereum.org Withdrawals', url: 'https://ethereum.org/en/staking/withdrawals/' },
+    ],
   },
   
   {
@@ -458,6 +464,12 @@ export const TIMELINE_DATA: TimelineNode[] = [
     relatedEips: [4844, 1153, 4788, 5656, 6780, 7044, 7045, 7514, 7516],
     content: `EIP-4844 (Proto-Danksharding) introduced "blob" transactions—a new way for L2s to post data to Ethereum at dramatically lower cost. L2 transaction fees dropped from dollars to cents. This was the first step toward full Danksharding.`,
     tags: ['protocol', 'scaling'],
+    links: [
+      { label: 'Forkcast: Dencun', url: 'https://forkcast.org/' },
+      { label: 'EIP-4844 Spec', url: 'https://eips.ethereum.org/EIPS/eip-4844' },
+      { label: 'Etherscan Block', url: 'https://etherscan.io/block/19426587' },
+      { label: 'Blob Explorer', url: 'https://blobscan.com/' },
+    ],
   },
   
   // ============= APPLICATION MILESTONES =============
