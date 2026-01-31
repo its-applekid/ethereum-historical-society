@@ -15,6 +15,7 @@ export type NodeType =
   | 'milestone'
   | 'scaling'
   | 'controversy'
+  | 'application'  // DeFi, NFT, major dApp launches
 
 export interface TimelineNode {
   id: string
@@ -128,13 +129,23 @@ export const TIMELINE_DATA: TimelineNode[] = [
   },
   {
     id: 'cryptokitties',
-    type: 'milestone',
+    type: 'application',
     date: '2017-11-28',
     title: 'CryptoKitties Congestion',
     summary: 'CryptoKitties game congests the network, highlighting scalability challenges.',
     era: 'metropolis',
     importance: 'significant',
     content: `CryptoKitties, a game for breeding digital cats, became so popular it accounted for 25% of Ethereum traffic. Gas prices spiked and transactions backed up, making clear the urgent need for scaling solutions.`
+  },
+  {
+    id: 'makerdao-launch',
+    type: 'application',
+    date: '2017-12-18',
+    title: 'MakerDAO & DAI Launch',
+    summary: 'First decentralized stablecoin launches. DAI maintains $1 peg through over-collateralization.',
+    era: 'metropolis',
+    importance: 'major',
+    content: `MakerDAO launched DAI, a decentralized stablecoin backed by ETH collateral. Users could lock ETH in Collateralized Debt Positions (CDPs) to mint DAI. This was DeFi's first major primitive and proved smart contracts could create stable value.`
   },
   {
     id: 'constantinople',
@@ -147,6 +158,17 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     relatedEips: [145, 1014, 1052, 1234, 1283],
     content: `Constantinople was delayed after a reentrancy vulnerability was found in EIP-1283. It launched with St. Petersburg, which removed the problematic EIP. Block rewards reduced to 2 ETH.`
+  },
+  
+  {
+    id: 'uniswap-v1',
+    type: 'application',
+    date: '2018-11-02',
+    title: 'Uniswap V1 Launch',
+    summary: 'Hayden Adams launches Uniswap, the first automated market maker (AMM) DEX on Ethereum.',
+    era: 'metropolis',
+    importance: 'major',
+    content: `Uniswap introduced the x*y=k constant product formula, enabling trustless token swaps without order books. Anyone could provide liquidity and earn fees. This simple design would spark DeFi Summer and inspire countless forks.`
   },
   
   // ISTANBUL ERA
@@ -185,6 +207,36 @@ export const TIMELINE_DATA: TimelineNode[] = [
   },
   
   // BEACON CHAIN ERA
+  {
+    id: 'uniswap-v2',
+    type: 'application',
+    date: '2020-05-18',
+    title: 'Uniswap V2 Launch',
+    summary: 'V2 adds ERC-20/ERC-20 pairs, flash swaps, and price oracles.',
+    era: 'beacon',
+    importance: 'significant',
+    content: `Uniswap V2 enabled direct token-to-token swaps (no ETH intermediary), flash swaps for arbitrage, and time-weighted average price (TWAP) oracles. These features made Uniswap a foundational DeFi primitive.`
+  },
+  {
+    id: 'compound-governance',
+    type: 'application',
+    date: '2020-06-15',
+    title: 'Compound COMP Token & DeFi Summer',
+    summary: 'Compound distributes COMP tokens, igniting "DeFi Summer" and yield farming mania.',
+    era: 'beacon',
+    importance: 'major',
+    content: `Compound's COMP token distribution created a new paradigm: "liquidity mining." Users earned governance tokens for providing liquidity. This sparked DeFi Summer 2020, with total value locked (TVL) exploding from $1B to $10B+ in months.`
+  },
+  {
+    id: 'yearn-launch',
+    type: 'application',
+    date: '2020-07-17',
+    title: 'Yearn Finance & YFI',
+    summary: 'Andre Cronje launches Yearn, with "fair launch" of YFI token — no premine, no VCs.',
+    era: 'beacon',
+    importance: 'significant',
+    content: `Yearn automated yield optimization strategies. Its YFI token launch with zero premine, no founder allocation, and pure community distribution became legendary. YFI went from $0 to $40,000 in weeks.`
+  },
   {
     id: 'beacon-launch',
     type: 'milestone',
@@ -286,6 +338,27 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     relatedEips: [3651, 3855, 3860, 4895],
     content: `Shapella finally enabled staking withdrawals, completing the PoS transition. EIP-4895 allowed validators to withdraw their staked ETH and rewards. Contrary to fears, this didn't cause a mass exodus.`
+  },
+  
+  {
+    id: 'base-launch',
+    type: 'scaling',
+    date: '2023-08-09',
+    title: 'Base Mainnet Launch',
+    summary: 'Coinbase launches Base, an OP Stack L2, bringing crypto mainstream exposure.',
+    era: 'shanghai',
+    importance: 'major',
+    content: `Base, built on Optimism's OP Stack, marked a major exchange entering L2s. As Coinbase's onchain platform, it brought mainstream exposure and signaled institutional acceptance of Ethereum's rollup-centric future.`
+  },
+  {
+    id: 'zksync-era',
+    type: 'scaling',
+    date: '2023-03-24',
+    title: 'zkSync Era Launch',
+    summary: 'First zkEVM mainnet, bringing validity proofs to EVM compatibility.',
+    era: 'shanghai',
+    importance: 'major',
+    content: `zkSync Era launched the first zkEVM — a ZK rollup with full EVM compatibility. Unlike optimistic rollups, ZK rollups provide instant finality through validity proofs. This was a major milestone for ZK technology.`
   },
   
   // CANCUN-DENEB ERA

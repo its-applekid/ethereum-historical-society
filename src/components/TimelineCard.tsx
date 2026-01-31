@@ -14,6 +14,7 @@ const TYPE_CONFIG: Record<NodeType, { label: string; color: string; bg: string }
   milestone: { label: 'Milestone', color: 'text-green-400', bg: 'bg-green-500/20' },
   scaling: { label: 'Scaling', color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
   controversy: { label: 'Debate', color: 'text-amber-400', bg: 'bg-amber-500/20' },
+  application: { label: 'Application', color: 'text-pink-400', bg: 'bg-pink-500/20' },
 }
 
 export function TimelineCard({ node, isSelected, onClick, alignment }: TimelineCardProps) {
