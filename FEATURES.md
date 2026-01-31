@@ -232,8 +232,13 @@ For each event, find:
 - [x] Scroll → l2beat.com/scaling/projects/scroll + scroll.io
 
 **DeFi/App launches:**
-- [ ] MakerDAO launch — archive.org of original site
-- [ ] Uniswap V1/V2/V3 — Hayden Adams announcements
+- [x] MakerDAO launch — archive.org of original site (already had links)
+- [x] Uniswap V1/V2/V3 — Hayden Adams announcements (already had links)
+- [x] Frontier Launch — genesis block, blog announcement, ethereum.org
+- [x] Homestead — block link, blog, EIP-2
+- [x] Byzantium — block link, blog, zkSNARK EIPs
+- [x] Beacon Chain Launch — genesis, deposit contract, ethereum.org
+- [x] Yearn Finance — Andre Cronje medium post, YFI token
 - [ ] CryptoKitties — original site, news coverage
 - [ ] All hard forks — ethereum/pm specs, EIP links
 - [ ] The Merge — countdown site, official comms

@@ -71,7 +71,14 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: 'Ethereum mainnet goes live. The genesis block is mined, marking the birth of the world computer.',
     era: 'frontier',
     importance: 'major',
-    content: `Ethereum officially launched on July 30, 2015 with the Frontier release. This was a "beta" release intended for developers to start building and mining. The genesis block contained 8,893 transactions from the presale, distributing 72 million ETH.`
+    content: `Ethereum officially launched on July 30, 2015 with the Frontier release. This was a "beta" release intended for developers to start building and mining. The genesis block contained 8,893 transactions from the presale, distributing 72 million ETH.`,
+    tags: ['protocol'],
+    links: [
+      { label: 'Genesis Block', url: 'https://etherscan.io/block/0' },
+      { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2015/07/30/ethereum-launches' },
+      { label: 'Vitalik\'s Launch Post', url: 'https://web.archive.org/web/20150801011623/https://blog.ethereum.org/2015/07/30/ethereum-launches/' },
+      { label: 'ethereum.org History', url: 'https://ethereum.org/en/history/#frontier' },
+    ],
   },
   {
     id: 'frontier-thawing',
@@ -98,7 +105,14 @@ export const TIMELINE_DATA: TimelineNode[] = [
     content: `The Homestead release marked Ethereum's transition from beta to a more stable platform. Key changes included:
 - EIP-2: Adjusted contract creation gas
 - EIP-7: Added DELEGATECALL opcode
-- EIP-8: Forward compatibility for networking protocol`
+- EIP-8: Forward compatibility for networking protocol`,
+    tags: ['protocol'],
+    links: [
+      { label: 'Homestead Block', url: 'https://etherscan.io/block/1150000' },
+      { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2016/02/29/homestead-release' },
+      { label: 'ethereum.org History', url: 'https://ethereum.org/en/history/#homestead' },
+      { label: 'EIP-2: Homestead Gas Changes', url: 'https://eips.ethereum.org/EIPS/eip-2' },
+    ],
   },
   {
     id: 'dao-hack',
@@ -148,7 +162,14 @@ export const TIMELINE_DATA: TimelineNode[] = [
     era: 'metropolis',
     importance: 'major',
     relatedEips: [100, 140, 196, 197, 198, 211, 214, 658],
-    content: `Byzantium introduced crucial cryptographic primitives for zkSNARKs (EIP-196, EIP-197), laying groundwork for future privacy and scaling solutions. Block rewards were reduced from 5 to 3 ETH.`
+    content: `Byzantium introduced crucial cryptographic primitives for zkSNARKs (EIP-196, EIP-197), laying groundwork for future privacy and scaling solutions. Block rewards were reduced from 5 to 3 ETH.`,
+    tags: ['protocol'],
+    links: [
+      { label: 'Byzantium Block', url: 'https://etherscan.io/block/4370000' },
+      { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2017/10/12/byzantium-hf-announcement' },
+      { label: 'ethereum.org History', url: 'https://ethereum.org/en/history/#byzantium' },
+      { label: 'EIP-196: zkSNARK Precompiles', url: 'https://eips.ethereum.org/EIPS/eip-196' },
+    ],
   },
   {
     id: 'raiden-network',
@@ -305,17 +326,32 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: 'Andre Cronje launches Yearn, with "fair launch" of YFI token — no premine, no VCs.',
     era: 'beacon',
     importance: 'significant',
-    content: `Yearn automated yield optimization strategies. Its YFI token launch with zero premine, no founder allocation, and pure community distribution became legendary. YFI went from $0 to $40,000 in weeks.`
+    content: `Yearn automated yield optimization strategies. Its YFI token launch with zero premine, no founder allocation, and pure community distribution became legendary. YFI went from $0 to $40,000 in weeks.`,
+    tags: ['defi'],
+    links: [
+      { label: 'Andre Cronje Announcement', url: 'https://medium.com/iearn/yfi-df84573db81' },
+      { label: 'Yearn Finance', url: 'https://yearn.fi/' },
+      { label: 'YFI Token', url: 'https://etherscan.io/token/0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e' },
+      { label: 'Fair Launch Discussion', url: 'https://gov.yearn.fi/' },
+    ],
   },
   {
     id: 'beacon-launch',
     type: 'milestone',
     date: '2020-12-01',
+    blockNumber: 11_052_984,
     title: 'Beacon Chain Launch',
     summary: 'Ethereum 2.0 Phase 0 launches. Proof of Stake begins on a parallel chain.',
     era: 'beacon',
     importance: 'major',
-    content: `The Beacon Chain launched with 21,063 validators staking 674,000 ETH. This separate chain would run PoS consensus in parallel with mainnet PoW until The Merge.`
+    content: `The Beacon Chain launched with 21,063 validators staking 674,000 ETH. This separate chain would run PoS consensus in parallel with mainnet PoW until The Merge.`,
+    tags: ['protocol'],
+    links: [
+      { label: 'Beacon Chain Genesis', url: 'https://beaconscan.com/slot/0' },
+      { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2020/11/27/eth2-quick-update-no-21' },
+      { label: 'Deposit Contract', url: 'https://etherscan.io/address/0x00000000219ab540356cBB839Cbe05303d7705Fa' },
+      { label: 'ethereum.org Beacon Chain', url: 'https://ethereum.org/en/roadmap/beacon-chain/' },
+    ],
   },
   {
     id: 'berlin',
