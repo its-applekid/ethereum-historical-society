@@ -58,11 +58,21 @@ export function DetailPanel({ node, onClose }: DetailPanelProps) {
             </span>
           </div>
 
-          {/* Block number */}
+          {/* Block number - links to Etherscan */}
           {node.blockNumber !== undefined && (
             <div>
               <h3 className="text-sm font-medium text-[var(--text-muted)] mb-1">Block Number</h3>
-              <p className="font-mono text-lg">#{node.blockNumber.toLocaleString()}</p>
+              <a 
+                href={`https://etherscan.io/block/${node.blockNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-lg text-[var(--eth-purple)] hover:underline inline-flex items-center gap-1"
+              >
+                #{node.blockNumber.toLocaleString()}
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
             </div>
           )}
 
@@ -104,17 +114,40 @@ export function DetailPanel({ node, onClose }: DetailPanelProps) {
             </div>
           )}
 
-          {/* Links */}
+          {/* Custom Links */}
+          {node.links && node.links.length > 0 && (
+            <div>
+              <h3 className="text-sm font-medium text-[var(--text-muted)] mb-2">Primary Sources</h3>
+              <div className="space-y-2">
+                {node.links.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-[var(--eth-purple)] hover:underline"
+                  >
+                    <span>{link.label}</span>
+                    <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* General Links */}
           <div>
             <h3 className="text-sm font-medium text-[var(--text-muted)] mb-2">Learn More</h3>
             <div className="space-y-2">
               <a
-                href={`https://ethereum.org/en/history/#${node.id}`}
+                href={`https://ethereum.org/en/history/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-[var(--eth-purple)] hover:underline"
               >
-                <span>ethereum.org</span>
+                <span>ethereum.org History</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>

@@ -26,6 +26,11 @@ export type Tag =
   | 'research'   // ethresear.ch, whitepapers
   | 'security'   // hacks, incidents, lessons
 
+export interface TimelineLink {
+  label: string
+  url: string
+}
+
 export interface TimelineNode {
   id: string
   type: NodeType
@@ -40,6 +45,8 @@ export interface TimelineNode {
   tags?: Tag[]
   /** URL to primary source (video, blog post, etc.) */
   sourceUrl?: string
+  /** Multiple reference links */
+  links?: TimelineLink[]
 }
 
 export const ERA_INFO: Record<Era, { name: string; years: string; color: string }> = {
@@ -97,12 +104,19 @@ export const TIMELINE_DATA: TimelineNode[] = [
     id: 'dao-hack',
     type: 'controversy',
     date: '2016-06-17',
+    blockNumber: 1718497,
     title: 'The DAO Hack',
     summary: '3.6 million ETH (~$50M) drained from The DAO smart contract through a reentrancy vulnerability.',
     era: 'homestead',
     importance: 'major',
     content: `The DAO was a decentralized venture capital fund that raised $150M in ETH. A vulnerability in its code allowed an attacker to recursively call the withdraw function, draining funds before the balance was updated. This led to one of crypto's most controversial decisions.`,
     tags: ['security', 'social'],
+    sourceUrl: 'https://blog.ethereum.org/2016/06/17/critical-update-re-dao-vulnerability',
+    links: [
+      { label: 'Ethereum Foundation Statement', url: 'https://blog.ethereum.org/2016/06/17/critical-update-re-dao-vulnerability' },
+      { label: 'Community Discussion (archive)', url: 'https://web.archive.org/web/20160618140914/https://www.reddit.com/r/ethereum/comments/4oi2ta/i_think_thedao_is_getting_drained_right_now/' },
+      { label: 'Technical Postmortem', url: 'https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/' },
+    ],
   },
   {
     id: 'dao-fork',
@@ -114,7 +128,13 @@ export const TIMELINE_DATA: TimelineNode[] = [
     era: 'homestead',
     importance: 'major',
     relatedEips: [779],
-    content: `The Ethereum community voted to hard fork and return the stolen DAO funds. This was controversial as it violated "code is law" principles. Those who disagreed continued the original chain as Ethereum Classic (ETC).`
+    content: `The Ethereum community voted to hard fork and return the stolen DAO funds. This was controversial as it violated "code is law" principles. Those who disagreed continued the original chain as Ethereum Classic (ETC).`,
+    tags: ['protocol', 'security', 'social'],
+    links: [
+      { label: 'EIP-779: DAO Fork Spec', url: 'https://eips.ethereum.org/EIPS/eip-779' },
+      { label: 'Hard Fork Block', url: 'https://etherscan.io/block/1920000' },
+      { label: 'Carbonvote Results', url: 'https://web.archive.org/web/20160715215142/http://carbonvote.com/' },
+    ],
   },
   
   // METROPOLIS ERA
@@ -294,7 +314,14 @@ export const TIMELINE_DATA: TimelineNode[] = [
     era: 'beacon',
     importance: 'major',
     relatedEips: [1559, 3198, 3529, 3541, 3554],
-    content: `EIP-1559 was one of Ethereum's most significant economic changes. Instead of a pure auction, transactions now pay a base fee (burned) plus a priority tip. This made gas prices more predictable and introduced ETH burning.`
+    content: `EIP-1559 was one of Ethereum's most significant economic changes. Instead of a pure auction, transactions now pay a base fee (burned) plus a priority tip. This made gas prices more predictable and introduced ETH burning.`,
+    tags: ['protocol'],
+    links: [
+      { label: 'EIP-1559 Spec', url: 'https://eips.ethereum.org/EIPS/eip-1559' },
+      { label: 'London Block', url: 'https://etherscan.io/block/12965000' },
+      { label: 'ultrasound.money (burn tracker)', url: 'https://ultrasound.money/' },
+      { label: 'Tim Beiko Announcement', url: 'https://twitter.com/TimBeiko/status/1423307662159888388' },
+    ],
   },
   {
     id: 'optimism-launch',
@@ -350,6 +377,12 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `The Merge was Ethereum's most significant upgrade, transitioning from energy-intensive Proof of Work to Proof of Stake. The execution layer (mainnet) merged with the Beacon Chain consensus layer. ETH issuance dropped ~90% and energy consumption dropped 99.95%.`,
     tags: ['protocol'],
+    links: [
+      { label: 'Last PoW Block', url: 'https://etherscan.io/block/15537393' },
+      { label: 'First PoS Block', url: 'https://etherscan.io/block/15537394' },
+      { label: 'ethereum.org Merge Page', url: 'https://ethereum.org/en/roadmap/merge/' },
+      { label: 'Vitalik\'s Merge Thread', url: 'https://twitter.com/VitalikButerin/status/1570306185391378434' },
+    ],
   },
   
   // SHANGHAI ERA
