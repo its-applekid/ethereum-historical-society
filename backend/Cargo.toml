@@ -1,0 +1,49 @@
+[package]
+name = "eth-history-backend"
+version = "0.1.0"
+edition = "2021"
+description = "Backend for Ethereum Historical Society - aggregates data from multiple sources"
+
+[dependencies]
+# Web framework
+axum = { version = "0.7", features = ["ws"] }
+tokio = { version = "1", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# HTTP client for fetching sources
+reqwest = { version = "0.11", features = ["json"] }
+
+# GitHub API
+octocrab = "0.32"
+
+# Database (SQLite for now, easy to swap)
+rusqlite = { version = "0.30", features = ["bundled"] }
+
+# Caching
+moka = { version = "0.12", features = ["future"] }
+
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# Markdown parsing (for EIPs)
+pulldown-cmark = "0.9"
+
+# Error handling
+anyhow = "1"
+thiserror = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# WebSocket for live blocks
+futures = "0.3"
+tokio-tungstenite = "0.21"
+
+[dev-dependencies]
+tokio-test = "0.4"

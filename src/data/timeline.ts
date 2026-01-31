@@ -17,6 +17,15 @@ export type NodeType =
   | 'controversy'
   | 'application'  // DeFi, NFT, major dApp launches
 
+export type Tag = 
+  | 'protocol'   // hard forks, EIPs, upgrades
+  | 'scaling'    // L2s, rollups, Plasma, Raiden
+  | 'defi'       // Uniswap, MakerDAO, lending
+  | 'nft'        // CryptoKitties, OpenSea, art
+  | 'social'     // tweets, talks, blog posts
+  | 'research'   // ethresear.ch, whitepapers
+  | 'security'   // hacks, incidents, lessons
+
 export interface TimelineNode {
   id: string
   type: NodeType
@@ -28,6 +37,9 @@ export interface TimelineNode {
   importance: 'major' | 'significant' | 'minor'
   relatedEips?: number[]
   content?: string
+  tags?: Tag[]
+  /** URL to primary source (video, blog post, etc.) */
+  sourceUrl?: string
 }
 
 export const ERA_INFO: Record<Era, { name: string; years: string; color: string }> = {
@@ -89,7 +101,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: '3.6 million ETH (~$50M) drained from The DAO smart contract through a reentrancy vulnerability.',
     era: 'homestead',
     importance: 'major',
-    content: `The DAO was a decentralized venture capital fund that raised $150M in ETH. A vulnerability in its code allowed an attacker to recursively call the withdraw function, draining funds before the balance was updated. This led to one of crypto's most controversial decisions.`
+    content: `The DAO was a decentralized venture capital fund that raised $150M in ETH. A vulnerability in its code allowed an attacker to recursively call the withdraw function, draining funds before the balance was updated. This led to one of crypto's most controversial decisions.`,
+    tags: ['security', 'social'],
   },
   {
     id: 'dao-fork',
@@ -118,6 +131,16 @@ export const TIMELINE_DATA: TimelineNode[] = [
     content: `Byzantium introduced crucial cryptographic primitives for zkSNARKs (EIP-196, EIP-197), laying groundwork for future privacy and scaling solutions. Block rewards were reduced from 5 to 3 ETH.`
   },
   {
+    id: 'raiden-network',
+    type: 'scaling',
+    date: '2017-03-01',
+    title: 'Raiden Network Development',
+    summary: 'State channels for Ethereum — like Lightning for Bitcoin. Early scaling attempt before rollups.',
+    era: 'homestead',
+    importance: 'significant',
+    content: `Raiden Network was one of the earliest Ethereum scaling attempts, using state channels for off-chain payments. From their 2022 post-mortem: "The demand for a scalable payment solution is way lower than we and the Ethereum community originally anticipated." It got eclipsed by the more general-purpose rollup architecture.`
+  },
+  {
     id: 'plasma-whitepaper',
     type: 'scaling',
     date: '2017-08-11',
@@ -125,7 +148,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: 'Vitalik and Joseph Poon publish Plasma, proposing child chains for scaling.',
     era: 'metropolis',
     importance: 'major',
-    content: `Plasma proposed a framework for creating child chains that periodically commit to Ethereum mainnet. While Plasma itself didn't achieve widespread adoption, it laid the intellectual groundwork for rollups.`
+    content: `Plasma proposed a framework for creating child chains that periodically commit to Ethereum mainnet. While Plasma itself didn't achieve widespread adoption due to data availability challenges, it laid the intellectual groundwork for rollups.`
   },
   {
     id: 'cryptokitties',
@@ -135,7 +158,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: 'CryptoKitties game congests the network, highlighting scalability challenges.',
     era: 'metropolis',
     importance: 'significant',
-    content: `CryptoKitties, a game for breeding digital cats, became so popular it accounted for 25% of Ethereum traffic. Gas prices spiked and transactions backed up, making clear the urgent need for scaling solutions.`
+    content: `CryptoKitties, a game for breeding digital cats, became so popular it accounted for 25% of Ethereum traffic. Gas prices spiked and transactions backed up, making clear the urgent need for scaling solutions.`,
+    tags: ['nft', 'scaling'],
   },
   {
     id: 'makerdao-launch',
@@ -145,7 +169,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: 'First decentralized stablecoin launches. DAI maintains $1 peg through over-collateralization.',
     era: 'metropolis',
     importance: 'major',
-    content: `MakerDAO launched DAI, a decentralized stablecoin backed by ETH collateral. Users could lock ETH in Collateralized Debt Positions (CDPs) to mint DAI. This was DeFi's first major primitive and proved smart contracts could create stable value.`
+    content: `MakerDAO launched DAI, a decentralized stablecoin backed by ETH collateral. Users could lock ETH in Collateralized Debt Positions (CDPs) to mint DAI. This was DeFi's first major primitive and proved smart contracts could create stable value.`,
+    tags: ['defi'],
   },
   {
     id: 'constantinople',
@@ -323,7 +348,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     summary: 'Ethereum transitions from Proof of Work to Proof of Stake, reducing energy use by 99.95%.',
     era: 'merge',
     importance: 'major',
-    content: `The Merge was Ethereum's most significant upgrade, transitioning from energy-intensive Proof of Work to Proof of Stake. The execution layer (mainnet) merged with the Beacon Chain consensus layer. ETH issuance dropped ~90% and energy consumption dropped 99.95%.`
+    content: `The Merge was Ethereum's most significant upgrade, transitioning from energy-intensive Proof of Work to Proof of Stake. The execution layer (mainnet) merged with the Beacon Chain consensus layer. ETH issuance dropped ~90% and energy consumption dropped 99.95%.`,
+    tags: ['protocol'],
   },
   
   // SHANGHAI ERA
@@ -372,7 +398,107 @@ export const TIMELINE_DATA: TimelineNode[] = [
     era: 'cancun',
     importance: 'major',
     relatedEips: [4844, 1153, 4788, 5656, 6780, 7044, 7045, 7514, 7516],
-    content: `EIP-4844 (Proto-Danksharding) introduced "blob" transactions—a new way for L2s to post data to Ethereum at dramatically lower cost. L2 transaction fees dropped from dollars to cents. This was the first step toward full Danksharding.`
+    content: `EIP-4844 (Proto-Danksharding) introduced "blob" transactions—a new way for L2s to post data to Ethereum at dramatically lower cost. L2 transaction fees dropped from dollars to cents. This was the first step toward full Danksharding.`,
+    tags: ['protocol', 'scaling'],
+  },
+  
+  // ============= APPLICATION MILESTONES =============
+  
+  {
+    id: 'ens-launch',
+    type: 'application',
+    date: '2017-05-04',
+    blockNumber: 3648571,
+    title: 'ENS Launch',
+    summary: 'Ethereum Name Service launches, bringing human-readable names to Ethereum addresses.',
+    era: 'metropolis',
+    importance: 'major',
+    content: `ENS (Ethereum Name Service) allowed users to register .eth domains that resolve to Ethereum addresses. Instead of 0x123...abc, you could use vitalik.eth. This became the identity layer for Ethereum — the first step toward web3 identity.`,
+    tags: ['defi', 'social'],
+  },
+  {
+    id: 'aave-launch',
+    type: 'application',
+    date: '2020-01-08',
+    title: 'Aave V1 Launch',
+    summary: 'Aave launches with flash loans — uncollateralized loans that must be repaid in one transaction.',
+    era: 'istanbul',
+    importance: 'major',
+    content: `Aave introduced flash loans — a DeFi primitive that seemed impossible. Borrow any amount with zero collateral, as long as you repay within the same transaction. This enabled complex arbitrage, liquidations, and composable DeFi strategies.`,
+    tags: ['defi'],
+  },
+  {
+    id: 'nft-summer',
+    type: 'application',
+    date: '2021-03-11',
+    title: 'Beeple NFT Sells for $69M',
+    summary: "Beeple's 'Everydays' sells at Christie's for $69M, igniting the NFT boom.",
+    era: 'beacon',
+    importance: 'major',
+    content: `Digital artist Beeple sold an NFT at Christie's auction house for $69.3 million — the third-highest price for a living artist. This mainstream moment brought NFTs into cultural consciousness and sparked a speculative frenzy.`,
+    tags: ['nft', 'social'],
+  },
+  {
+    id: 'opensea-peak',
+    type: 'application',
+    date: '2022-01-01',
+    title: 'OpenSea Hits $5B Monthly Volume',
+    summary: 'NFT marketplace OpenSea reaches peak trading volume during the NFT boom.',
+    era: 'beacon',
+    importance: 'significant',
+    content: `OpenSea, the dominant NFT marketplace, hit $5 billion in monthly trading volume. Bored Apes, CryptoPunks, and countless PFP projects traded hands. The NFT market would later cool significantly, but this peak showed the cultural moment Ethereum enabled.`,
+    tags: ['nft'],
+  },
+  {
+    id: 'uniswap-v3',
+    type: 'application',
+    date: '2021-05-05',
+    title: 'Uniswap V3 Launch',
+    summary: 'Concentrated liquidity revolutionizes AMM capital efficiency.',
+    era: 'beacon',
+    importance: 'major',
+    content: `Uniswap V3 introduced concentrated liquidity — LPs could provide liquidity in specific price ranges, dramatically improving capital efficiency. This made Uniswap competitive with centralized exchange spreads for major pairs.`,
+    tags: ['defi'],
+  },
+  {
+    id: 'dao-hack-anniversary',
+    type: 'milestone',
+    date: '2021-06-17',
+    title: 'DAO Hack 5-Year Anniversary',
+    summary: 'Ethereum community reflects on the DAO fork decision and its consequences.',
+    era: 'beacon',
+    importance: 'minor',
+    content: `Five years after the DAO hack, the Ethereum community reflected on the controversial fork. The decision to roll back state to return funds shaped Ethereum's social layer and governance philosophy. "Code is law" vs "the community decides."`,
+    tags: ['social', 'security'],
+  },
+  
+  // ============= SECURITY INCIDENTS =============
+  
+  {
+    id: 'parity-wallet-hack',
+    type: 'controversy',
+    date: '2017-11-06',
+    title: 'Parity Wallet Freeze',
+    summary: 'A user accidentally "kills" the Parity multisig library, freezing $150M in ETH forever.',
+    era: 'metropolis',
+    importance: 'major',
+    content: `A developer accidentally called a function that made the Parity multisig wallet library self-destruct, permanently freezing ~$150M worth of ETH. The community debated whether to hard fork to recover funds (they didn't). The incident highlighted smart contract risks.`,
+    tags: ['security'],
+  },
+  
+  // ============= RESEARCH & SOCIAL =============
+  
+  {
+    id: 'rollup-centric-roadmap',
+    type: 'research',
+    date: '2020-10-02',
+    title: 'Rollup-Centric Roadmap Announced',
+    summary: 'Vitalik announces Ethereum is pivoting to a rollup-centric future for scaling.',
+    era: 'beacon',
+    importance: 'major',
+    content: `In a pivotal blog post, Vitalik announced that Ethereum's scaling strategy would center on rollups rather than L1 sharding. "The Ethereum ecosystem is likely to be all-in on rollups as a scaling strategy for the near and mid-term future." This reshaped the entire roadmap.`,
+    tags: ['research', 'scaling', 'social'],
+    sourceUrl: 'https://vitalik.eth.limo/general/2020/10/02/scaling.html',
   },
 ]
 
