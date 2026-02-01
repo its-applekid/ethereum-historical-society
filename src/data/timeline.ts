@@ -1852,9 +1852,10 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     summary: 'One of the first major ETHGlobal hackathons. 400+ hackers build on Ethereum in Canada.',
     era: 'metropolis',
     importance: 'significant',
-    content: `ETHWaterloo was one of the earliest large-scale Ethereum hackathons, helping establish the ETHGlobal hackathon series. Held at the University of Waterloo, it brought together developers to build on Ethereum during the ICO boom era. Projects spanned identity, DeFi primitives, and gaming.`,
+    content: `ETHWaterloo was one of the earliest large-scale Ethereum hackathons, helping establish the ETHGlobal hackathon series. Held at the University of Waterloo, it brought together developers to build on Ethereum during the ICO boom era. Winners included GoNetwork (mobile scaling) and Rufflet (smart contract analytics by Axiom Zen, the CryptoKitties team).`,
     tags: ['social'],
     links: [
+      { label: 'Devpost Winners', url: 'https://ethwaterloo.devpost.com/project-gallery' },
       { label: 'ETHGlobal', url: 'https://ethglobal.com/' },
     ],
   },
@@ -1868,9 +1869,10 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     summary: 'Major ETHGlobal hackathon in SF. 1000+ hackers, record-breaking event.',
     era: 'metropolis',
     importance: 'significant',
-    content: `ETHSanFrancisco was a massive ETHGlobal hackathon that brought over 1000 developers to the Palace of Fine Arts. It marked a high point for Ethereum developer enthusiasm before the bear market fully set in. Projects focused on scaling solutions, UX improvements, and early DeFi concepts.`,
+    content: `ETHSanFrancisco was a massive ETHGlobal hackathon that brought over 1000 developers to the Palace of Fine Arts. It marked a high point for Ethereum developer enthusiasm before the bear market fully set in. Projects focused on scaling solutions, UX improvements, and early DeFi concepts using MakerDAO, Kyber, and atomic swaps.`,
     tags: ['social'],
     links: [
+      { label: 'Devpost Winners', url: 'https://ethsanfrancisco.devpost.com/project-gallery' },
       { label: 'ETHGlobal', url: 'https://ethglobal.com/' },
     ],
   },
@@ -1887,6 +1889,7 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     content: `ETHNewYork 2019 showed that the Ethereum developer community remained strong even in the depths of the bear market. While prices were down, hackers continued building infrastructure and applications that would later power DeFi Summer. The resilience displayed here defined Ethereum culture.`,
     tags: ['social'],
     links: [
+      { label: 'Devpost Winners', url: 'https://ethnewyork.devpost.com/project-gallery' },
       { label: 'ETHGlobal', url: 'https://ethglobal.com/' },
     ],
   },
@@ -1903,6 +1906,7 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     content: `ETHBerlin established itself as a key European Ethereum hackathon, held right before DevCon 4 in Prague. The event focused on privacy, decentralization, and cypherpunk values. It spawned the Department of Decentralization community that continued organizing events.`,
     tags: ['social'],
     links: [
+      { label: 'Devpost Winners', url: 'https://ethberlin.devpost.com/project-gallery' },
       { label: 'ETHBerlin', url: 'https://ethberlin.org/' },
     ],
   },
