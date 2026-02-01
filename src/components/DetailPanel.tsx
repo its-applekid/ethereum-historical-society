@@ -1,5 +1,19 @@
 import { ERA_INFO } from '../data/timeline'
-import type { TimelineNode } from '../data/timeline'
+import type { TimelineNode, Tag } from '../data/timeline'
+
+// Tag styling for detail view
+const TAG_CONFIG: Record<Tag, { label: string; color: string; bg: string; emoji: string }> = {
+  protocol: { label: 'Protocol', color: '#A78BFA', bg: 'rgba(167, 139, 250, 0.2)', emoji: '⛓️' },
+  scaling: { label: 'Scaling', color: '#60A5FA', bg: 'rgba(96, 165, 250, 0.2)', emoji: '📈' },
+  defi: { label: 'DeFi', color: '#34D399', bg: 'rgba(52, 211, 153, 0.2)', emoji: '💰' },
+  nft: { label: 'NFT', color: '#FBBF24', bg: 'rgba(251, 191, 36, 0.2)', emoji: '🖼️' },
+  social: { label: 'Social', color: '#F472B6', bg: 'rgba(244, 114, 182, 0.2)', emoji: '💬' },
+  research: { label: 'Research', color: '#818CF8', bg: 'rgba(129, 140, 248, 0.2)', emoji: '🔬' },
+  security: { label: 'Security', color: '#F87171', bg: 'rgba(248, 113, 113, 0.2)', emoji: '🔒' },
+  adoption: { label: 'Adoption', color: '#10B981', bg: 'rgba(16, 185, 129, 0.2)', emoji: '🏛️' },
+  tvl: { label: 'TVL', color: '#2DD4BF', bg: 'rgba(45, 212, 191, 0.2)', emoji: '📊' },
+  blobs: { label: 'Blobs', color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)', emoji: '🫧' },
+}
 
 interface DetailPanelProps {
   node: TimelineNode | null
@@ -58,21 +72,27 @@ export function DetailPanel({ node, onClose }: DetailPanelProps) {
             </span>
           </div>
 
-          {/* Block number - links to Etherscan */}
-          {node.blockNumber !== undefined && (
+          {/* All category tags */}
+          {node.tags && node.tags.length > 0 && (
             <div>
-              <h3 className="text-sm font-medium text-[var(--text-muted)] mb-1">Block Number</h3>
-              <a 
-                href={`https://etherscan.io/block/${node.blockNumber}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-lg text-[var(--eth-purple)] hover:underline inline-flex items-center gap-1"
-              >
-                #{node.blockNumber.toLocaleString()}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
+              <h3 className="text-sm font-medium text-[var(--text-muted)] mb-2">Categories</h3>
+              <div className="flex flex-wrap gap-2">
+                {node.tags.map((tag) => {
+                  const config = TAG_CONFIG[tag]
+                  return (
+                    <span 
+                      key={tag}
+                      className="px-3 py-1.5 rounded-lg text-sm font-medium"
+                      style={{ 
+                        backgroundColor: config.bg,
+                        color: config.color 
+                      }}
+                    >
+                      {config.emoji} {config.label}
+                    </span>
+                  )
+                })}
+              </div>
             </div>
           )}
 
@@ -137,23 +157,24 @@ export function DetailPanel({ node, onClose }: DetailPanelProps) {
             </div>
           )}
 
-          {/* General Links */}
-          <div>
-            <h3 className="text-sm font-medium text-[var(--text-muted)] mb-2">Learn More</h3>
-            <div className="space-y-2">
-              <a
-                href={`https://ethereum.org/en/history/`}
+          {/* Block number - bottom right footer */}
+          {node.blockNumber !== undefined && (
+            <div className="flex justify-end pt-4 mt-4 border-t border-[var(--bg-tertiary)]">
+              <a 
+                href={`https://etherscan.io/block/${node.blockNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[var(--eth-purple)] hover:underline"
+                className="font-mono text-sm text-[var(--text-muted)] hover:text-[var(--eth-purple)] transition-colors inline-flex items-center gap-1"
+                title={node.approximateBlock ? 'Approximate block (based on date)' : 'Exact block number'}
               >
-                <span>ethereum.org History</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {node.approximateBlock && <span className="opacity-60">~</span>}
+                #{node.blockNumber.toLocaleString()}
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

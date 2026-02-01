@@ -15,11 +15,28 @@ export function Timeline({ nodes, onSelectNode, selectedNodeId }: TimelineProps)
 
   return (
     <section id="timeline" className="relative py-24">
-      {/* Central spine */}
+      {/* Central spine - blurred glow effect */}
       <div 
-        className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2"
+        id="timeline-spine"
+        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent, var(--eth-purple) 10%, var(--eth-purple) 90%, transparent)'
+          top: '18rem',
+          bottom: '0',
+          width: '4px',
+          background: 'linear-gradient(to bottom, transparent 0%, var(--eth-purple) 2%, var(--eth-purple) 95%, transparent)',
+          filter: 'blur(8px)',
+          opacity: 0.6,
+        }}
+      />
+      {/* Subtle core line for definition */}
+      <div 
+        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+        style={{
+          top: '18rem',
+          bottom: '0',
+          width: '1px',
+          background: 'linear-gradient(to bottom, transparent 0%, var(--eth-purple) 2%, var(--eth-purple) 95%, transparent)',
+          opacity: 0.3,
         }}
       />
 
@@ -32,17 +49,16 @@ export function Timeline({ nodes, onSelectNode, selectedNodeId }: TimelineProps)
           <div key={era} className="relative mb-16">
             <EraMarker era={era} />
             
-            <div className="relative max-w-6xl mx-auto px-8">
-              {eraNodes.map((node, index) => (
-                <TimelineEntry
-                  key={node.id}
-                  node={node}
-                  index={index}
-                  isSelected={selectedNodeId === node.id}
-                  onSelect={() => onSelectNode(node)}
-                />
-              ))}
-            </div>
+            {/* Timeline entries - full width so circles align with spine */}
+            {eraNodes.map((node, index) => (
+              <TimelineEntry
+                key={node.id}
+                node={node}
+                index={index}
+                isSelected={selectedNodeId === node.id}
+                onSelect={() => onSelectNode(node)}
+              />
+            ))}
           </div>
         )
       })}
@@ -60,55 +76,38 @@ interface TimelineEntryProps {
 function TimelineEntry({ node, index, isSelected, onSelect }: TimelineEntryProps) {
   // Cards alternate: even = card left; odd = card right
   const cardOnLeft = index % 2 === 0
-  
-  // Events that spawn new lines get circle at BOTTOM, others at TOP
-  const spawnsLine = node.type === 'scaling' || node.type === 'hard_fork'
-  const circleAtBottom = spawnsLine
 
   return (
-    <div 
-      className={`
-        relative flex gap-4 mb-12
-        ${cardOnLeft ? 'flex-row' : 'flex-row-reverse'}
-        ${circleAtBottom ? 'items-end' : 'items-start'}
-      `}
-    >
-      {/* Card - takes 80% width */}
-      <div className="w-[80%]">
-        <TimelineCard 
-          node={node} 
-          isSelected={isSelected}
-          onClick={onSelect}
-        />
+    <div id={`event-${node.id}`} className="relative mb-12">
+      {/* Card container - constrained width, centered, with card on left or right side */}
+      <div className="max-w-5xl mx-auto px-8">
+        <div 
+          className={`
+            w-[85%] max-w-2xl
+            ${cardOnLeft ? 'mr-auto' : 'ml-auto'}
+          `}
+        >
+          <TimelineCard 
+            node={node} 
+            isSelected={isSelected}
+            onClick={onSelect}
+          />
+        </div>
       </div>
 
-      {/* Node marker circle - in remaining 20%, on center line */}
-      <div className={`w-[20%] flex justify-center relative z-10 ${circleAtBottom ? 'pb-2' : 'pt-2'}`}>
-        <button
-          onClick={onSelect}
-          className={`
-            w-4 h-4 rounded-full border-2 transition-all duration-300
-            ${isSelected 
-              ? 'bg-[var(--eth-purple)] border-[var(--eth-purple)] scale-150' 
-              : 'bg-[var(--bg-primary)] border-[var(--eth-purple)] hover:bg-[var(--eth-purple)] hover:scale-125'
-            }
-            ${node.importance === 'major' ? 'w-5 h-5' : ''}
-          `}
-        />
-        
-        {/* Block number label */}
-        {node.blockNumber !== undefined && (
-          <div 
-            className={`
-              absolute text-xs font-mono text-[var(--text-muted)] whitespace-nowrap
-              ${circleAtBottom ? 'bottom-2' : 'top-2'}
-              ${cardOnLeft ? 'left-[60%]' : 'right-[60%]'}
-            `}
-          >
-            #{node.blockNumber.toLocaleString()}
-          </div>
-        )}
-      </div>
+      {/* Node marker circle - straddles top edge of card (half above, half below) */}
+      <button
+        onClick={onSelect}
+        className={`
+          absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 z-10
+          w-4 h-4 rounded-full border-2 transition-all duration-300
+          ${isSelected 
+            ? 'bg-[var(--eth-purple)] border-[var(--eth-purple)] scale-150' 
+            : 'bg-[var(--bg-primary)] border-[var(--eth-purple)] hover:bg-[var(--eth-purple)] hover:scale-125'
+          }
+          ${node.importance === 'major' ? 'w-5 h-5' : ''}
+        `}
+      />
     </div>
   )
 }

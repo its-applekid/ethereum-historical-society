@@ -1,33 +1,90 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { Timeline } from './components/Timeline'
 import { Header } from './components/Header'
 import { DetailPanel } from './components/DetailPanel'
 import { L2Chains } from './components/L2Chains'
 import { AudioPlayer } from './components/AudioPlayer'
+import type { AudioPlayerRef } from './components/AudioPlayer'
+import { AutoPlay } from './components/AutoPlay'
+import type { AutoPlayRef } from './components/AutoPlay'
 import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
 import { TagFilter } from './components/TagFilter'
-import { TIMELINE_DATA, ERA_INFO } from './data/timeline'
-import type { TimelineNode, Era, Tag } from './data/timeline'
+import { TIMELINE_DATA } from './data/timeline'
+import type { TimelineNode, Tag } from './data/timeline'
 
 // All available tags
-const ALL_TAGS: Tag[] = ['protocol', 'scaling', 'defi', 'nft', 'social', 'research', 'security']
+const ALL_TAGS: Tag[] = ['protocol', 'scaling', 'defi', 'nft', 'social', 'research', 'security', 'adoption', 'tvl', 'blobs']
 
 function App() {
   const [selectedNode, setSelectedNode] = useState<TimelineNode | null>(null)
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [currentEra, setCurrentEra] = useState<Era>('frontier')
   const [activeTags, setActiveTags] = useState<Tag[]>(ALL_TAGS)
+  const [experienceStarted, setExperienceStarted] = useState(false)
   const timelineRef = useRef<HTMLDivElement>(null)
+  const audioRef = useRef<AudioPlayerRef>(null)
+  const autoPlayRef = useRef<AutoPlayRef>(null)
+
+  // Handle URL hash for deep linking to events
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1) // Remove the #
+      if (hash) {
+        const node = TIMELINE_DATA.find(n => n.id === hash)
+        if (node) {
+          setSelectedNode(node)
+          // Scroll to the event after a brief delay to let the DOM settle
+          setTimeout(() => {
+            const element = document.getElementById(`event-${hash}`)
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+          }, 100)
+        }
+      }
+    }
+
+    // Check hash on initial load
+    handleHashChange()
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  // Update URL hash when selecting a node
+  const handleSelectNode = useCallback((node: TimelineNode | null) => {
+    setSelectedNode(node)
+    if (node) {
+      // Update URL without triggering scroll
+      window.history.replaceState(null, '', `#${node.id}`)
+    } else {
+      // Clear hash when closing panel
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+  }, [])
+
+  // Start the full experience - scroll + music
+  const startExperience = useCallback(() => {
+    setExperienceStarted(true)
+    audioRef.current?.play()
+    autoPlayRef.current?.play()
+  }, [])
 
   // Filter timeline nodes based on active tags
   const filteredNodes = useMemo(() => {
-    if (activeTags.length === ALL_TAGS.length) {
-      return TIMELINE_DATA // Show all if all tags active
+    // No tags active = show nothing
+    if (activeTags.length === 0) {
+      return []
     }
+    // All tags active = show everything (including untagged)
+    if (activeTags.length === ALL_TAGS.length) {
+      return TIMELINE_DATA
+    }
+    // Some tags active = show nodes with at least one matching tag
+    // Untagged nodes only show when ALL tags are active
     return TIMELINE_DATA.filter(node => {
-      // Show nodes that have at least one matching tag, or no tags (legacy)
-      if (!node.tags || node.tags.length === 0) return true
+      if (!node.tags || node.tags.length === 0) return false
       return node.tags.some(tag => activeTags.includes(tag))
     })
   }, [activeTags])
@@ -40,11 +97,6 @@ function App() {
         const docHeight = document.documentElement.scrollHeight - window.innerHeight
         const progress = Math.min(1, Math.max(0, scrollTop / docHeight))
         setScrollProgress(progress)
-
-        // Determine current era based on scroll position
-        const eras: Era[] = ['frontier', 'homestead', 'metropolis', 'istanbul', 'beacon', 'merge', 'shanghai', 'cancun']
-        const eraIndex = Math.floor(progress * eras.length)
-        setCurrentEra(eras[Math.min(eraIndex, eras.length - 1)])
       }
     }
 
@@ -57,7 +109,18 @@ function App() {
       <Header />
 
       {/* Audio player - Yuri Petrovski's "The Cyberpunk Runner" */}
-      <AudioPlayer />
+      <AudioPlayer ref={audioRef} />
+      
+      {/* Auto-play - simple auto-scroll */}
+      <AutoPlay ref={autoPlayRef} speed={600} />
+      
+      {/* Tag Filter - bottom left popout */}
+      <TagFilter 
+        activeTags={activeTags} 
+        onTagsChange={setActiveTags}
+        totalEvents={TIMELINE_DATA.length}
+        filteredCount={filteredNodes.length}
+      />
       
       <main className="relative" ref={timelineRef}>
         {/* L2 chains background visualization - constrained to main content */}
@@ -69,54 +132,40 @@ function App() {
         <section className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent">
-              Ethereum Archive
+              The Ethereum Archive
             </h1>
             <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-8">
               A complete history of Ethereum's evolution — from genesis to the present
             </p>
             
-            {/* Era indicator */}
-            <div className="mb-6 text-sm">
-              <span className="text-[var(--text-muted)]">Currently viewing: </span>
-              <span 
-                className="font-medium px-2 py-1 rounded"
-                style={{ 
-                  backgroundColor: ERA_INFO[currentEra].color + '30',
-                  color: ERA_INFO[currentEra].color === '#1B1B1B' ? 'var(--text-secondary)' : ERA_INFO[currentEra].color,
-                }}
+            {/* Centered play button to start experience */}
+            {!experienceStarted ? (
+              <button
+                onClick={startExperience}
+                className="group mx-auto w-20 h-20 rounded-full bg-[var(--eth-purple)] hover:bg-[var(--eth-purple-light)] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
+                title="Start the Journey"
               >
-                {ERA_INFO[currentEra].name} ({ERA_INFO[currentEra].years})
-              </span>
-            </div>
-
-            <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
-              <span>Scroll to explore</span>
-              <svg 
-                className="w-5 h-5 animate-bounce" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                />
-              </svg>
-            </div>
-          </div>
-
-          {/* Tag Filter */}
-          <div className="max-w-md mx-auto mt-8">
-            <TagFilter 
-              activeTags={activeTags} 
-              onTagsChange={setActiveTags} 
-            />
-            {filteredNodes.length !== TIMELINE_DATA.length && (
-              <p className="text-sm text-[var(--text-muted)] text-center mt-2">
-                Showing {filteredNodes.length} of {TIMELINE_DATA.length} events
-              </p>
+                <svg className="w-10 h-10 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            ) : (
+              <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
+                <span>Scroll to explore</span>
+                <svg 
+                  className="w-5 h-5 animate-bounce" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+                  />
+                </svg>
+              </div>
             )}
           </div>
         </section>
@@ -124,7 +173,7 @@ function App() {
         {/* Timeline Section */}
         <Timeline 
           nodes={filteredNodes} 
-          onSelectNode={setSelectedNode}
+          onSelectNode={handleSelectNode}
           selectedNodeId={selectedNode?.id}
         />
 
@@ -137,7 +186,7 @@ function App() {
             <p className="text-[var(--text-muted)] text-center mb-6">
               The timeline continues... Watch live Ethereum blocks being produced.
             </p>
-            <LiveBlockFeed variant="full" maxBlocks={5} />
+            <LiveBlockFeed variant="full" maxBlocks={3} />
           </div>
         </section>
 
@@ -148,7 +197,7 @@ function App() {
       {/* Detail Panel */}
       <DetailPanel 
         node={selectedNode} 
-        onClose={() => setSelectedNode(null)} 
+        onClose={() => handleSelectNode(null)} 
       />
 
       {/* Footer */}

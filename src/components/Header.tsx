@@ -40,7 +40,7 @@ export function Header() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--eth-purple)] to-[var(--eth-purple-light)] flex items-center justify-center">
             <span className="text-white font-bold text-sm">Ξ</span>
           </div>
-          <span className="font-semibold text-lg">ETH History</span>
+          <span className="font-semibold text-lg">The Ethereum Archive</span>
         </div>
         
         <nav className="flex items-center gap-4 md:gap-6">

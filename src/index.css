@@ -22,6 +22,9 @@
   --text-primary: #FFFFFF;
   --text-secondary: #A1A1AA;
   --text-muted: #71717A;
+  --glass-bg: rgba(20, 20, 22, 0.7);
+  --glass-bg-transparent: rgba(20, 20, 22, 0.3);
+  --glass-bg-solid: rgba(20, 20, 22, 0.95);
 }
 
 /* Light theme */
@@ -34,6 +37,9 @@
   --text-muted: #A1A1AA;
   --eth-purple: #4F46E5;
   --eth-purple-light: #6366F1;
+  --glass-bg: rgba(244, 244, 245, 0.7);
+  --glass-bg-transparent: rgba(244, 244, 245, 0.3);
+  --glass-bg-solid: rgba(244, 244, 245, 0.95);
 }
 
 body {

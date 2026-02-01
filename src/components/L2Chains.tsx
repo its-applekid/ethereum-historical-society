@@ -19,17 +19,7 @@ interface ChainBranch {
 
 // All branching chains - intentionally tied to specific milestones
 const CHAIN_BRANCHES: ChainBranch[] = [
-  // ======== HISTORICAL FORKS (very faded) ========
-  {
-    id: 'etc',
-    name: 'Ethereum Classic',
-    startBlock: 1_920_000, // The DAO Fork
-    color: '#34D399', // Green
-    baseOpacity: 0.12, // Very faded - ancient history
-    shimmerStyle: 'slow',
-    side: -1,
-    milestone: 'DAO Fork - Chain split',
-  },
+  // ETC is now handled specially - runs from DAO Fork to The Merge
   
   // ======== FAILED SCALING ATTEMPTS (faded) ========
   {
@@ -143,8 +133,18 @@ const BEACON_CHAIN = {
   baseOpacity: 0.55, // More solid than L2s
 }
 
-// Current approximate block (updated periodically)
-const CURRENT_BLOCK = 22_400_000
+// Ethereum Classic - the DAO fork chain that runs parallel until The Merge
+const ETC_CHAIN = {
+  id: 'etc',
+  name: 'Ethereum Classic',
+  startBlock: 1_920_000, // The DAO Fork
+  endBlock: 15_537_394, // Runs until The Merge (symbolic ending)
+  color: '#34D399', // Green
+  baseOpacity: 0.2,
+}
+
+// Current approximate block (Jan 2026)
+const CURRENT_BLOCK = 23_500_000
 
 interface L2ChainsProps {
   /** Current scroll position (0-1) representing timeline progress */
@@ -235,16 +235,8 @@ export function L2Chains({ progress }: L2ChainsProps) {
         }
       `}</style>
 
-      {/* Main Ethereum line (center) - solid for most of timeline */}
-      <div 
-        className="absolute left-1/2 w-0.5"
-        style={{ 
-          top: 0,
-          height: '92%', // Solid portion - stops before live section
-          transform: 'translateX(-50%)',
-          background: 'linear-gradient(to bottom, var(--eth-purple), var(--eth-purple-light))',
-        }}
-      />
+      {/* Main Ethereum line (center) - hidden, using Timeline spine instead */}
+      {/* Line removed - the Timeline.tsx spine handles the center line */}
       
       {/* Main line live section - shimmers at the end where live blocks appear */}
       {progress > 0.85 && (
@@ -368,6 +360,120 @@ export function L2Chains({ progress }: L2ChainsProps) {
                 background: BEACON_CHAIN.color,
                 opacity: currentOpacity,
                 boxShadow: `0 0 10px ${BEACON_CHAIN.color}80`,
+              }}
+            />
+          </>
+        )
+      })()}
+
+      {/* Ethereum Classic - runs from DAO Fork to The Merge, then curves into mainline */}
+      {progress >= blockToProgress(ETC_CHAIN.startBlock) && (() => {
+        const etcStart = blockToProgress(ETC_CHAIN.startBlock)
+        const etcEnd = blockToProgress(ETC_CHAIN.endBlock)
+        const etcOffset = -35 // pixels to the left of center
+        const hasEnded = progress >= etcEnd
+        const fadeIn = Math.min(1, (progress - etcStart) * 3)
+        const currentOpacity = ETC_CHAIN.baseOpacity * fadeIn
+        
+        // Height of the straight portion (before end curve)
+        const straightHeight = hasEnded 
+          ? (etcEnd - etcStart) * 100 
+          : (progress - etcStart) * 100
+        
+        return (
+          <>
+            {/* ETC label */}
+            <span 
+              className="absolute whitespace-nowrap font-mono"
+              style={{ 
+                left: `calc(50% + ${etcOffset - 60}px)`,
+                top: `${etcStart * 100 + 0.5}%`,
+                color: ETC_CHAIN.color,
+                opacity: currentOpacity * 1.2,
+                fontSize: '10px',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                fontWeight: 500,
+              }}
+            >
+              Ethereum Classic
+            </span>
+            
+            {/* Straight vertical portion of ETC */}
+            <div
+              className="absolute shimmer-slow"
+              style={{
+                '--base-opacity': currentOpacity,
+                left: `calc(50% + ${etcOffset}px)`,
+                top: `${etcStart * 100}%`,
+                height: `${straightHeight}%`,
+                width: '2px',
+                background: `linear-gradient(to bottom, ${ETC_CHAIN.color} 0%, ${ETC_CHAIN.color} 100%)`,
+                opacity: currentOpacity,
+                borderRadius: '1px',
+              } as React.CSSProperties}
+            />
+            
+            {/* Connector from main line to ETC start */}
+            <div
+              style={{
+                position: 'absolute',
+                left: `calc(50% + ${etcOffset}px)`,
+                top: `${etcStart * 100}%`,
+                width: `${-etcOffset}px`,
+                height: '2px',
+                background: `linear-gradient(to right, ${ETC_CHAIN.color}, ${ETC_CHAIN.color}60)`,
+                opacity: currentOpacity * 0.7,
+              }}
+            />
+            
+            {/* The curve back to mainline at The Merge */}
+            {hasEnded && (
+              <svg
+                className="absolute pointer-events-none"
+                style={{
+                  left: `calc(50% + ${etcOffset}px)`,
+                  top: `${etcEnd * 100}%`,
+                  transform: 'translateY(-2px)',
+                  overflow: 'visible',
+                }}
+                width={-etcOffset + 10}
+                height="60"
+              >
+                {/* Curved path from ETC back to mainline */}
+                <path
+                  d={`M 0 0 Q 0 30 ${-etcOffset} 50`}
+                  fill="none"
+                  stroke={ETC_CHAIN.color}
+                  strokeWidth="2"
+                  opacity={currentOpacity}
+                  strokeLinecap="round"
+                />
+                {/* Glow effect on the curve */}
+                <path
+                  d={`M 0 0 Q 0 30 ${-etcOffset} 50`}
+                  fill="none"
+                  stroke={ETC_CHAIN.color}
+                  strokeWidth="6"
+                  opacity={currentOpacity * 0.3}
+                  strokeLinecap="round"
+                  filter="blur(3px)"
+                />
+              </svg>
+            )}
+            
+            {/* ETC fork origin marker */}
+            <div
+              className="absolute"
+              style={{
+                left: `calc(50% + ${etcOffset - 3}px)`,
+                top: `${etcStart * 100}%`,
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: ETC_CHAIN.color,
+                opacity: currentOpacity,
+                boxShadow: `0 0 8px ${ETC_CHAIN.color}60`,
               }}
             />
           </>
@@ -499,23 +605,6 @@ export function L2Chains({ progress }: L2ChainsProps) {
         )
       })}
 
-      {/* ETC fork visual - diagonal split indicator at the fork point */}
-      {progress >= blockToProgress(1_920_000) && (
-        <div
-          className="absolute shimmer-slow"
-          style={{
-            '--base-opacity': 0.2,
-            left: 'calc(50% - 2px)',
-            top: `${blockToProgress(1_920_000) * 100}%`,
-            width: '4px',
-            height: '4px',
-            borderRadius: '50%',
-            background: '#34D399',
-            boxShadow: '0 0 8px rgba(52, 211, 153, 0.5)',
-          } as React.CSSProperties}
-        />
-      )}
-
       {/* The Merge glow effect */}
       {progress >= blockToProgress(15_537_394) && (
         <div
@@ -547,6 +636,66 @@ export function L2Chains({ progress }: L2ChainsProps) {
           }}
         />
       )}
+
+      {/* Blob bubbles - appear after Dencun, float between L2 lines */}
+      <style>{`
+        @keyframes blob-float {
+          0%, 100% { 
+            transform: translateY(0) scale(1);
+            opacity: var(--blob-opacity);
+          }
+          50% { 
+            transform: translateY(-15px) scale(1.1);
+            opacity: calc(var(--blob-opacity) * 1.3);
+          }
+        }
+        @keyframes blob-wobble {
+          0%, 100% { border-radius: 60% 40% 55% 45% / 55% 45% 50% 50%; }
+          25% { border-radius: 45% 55% 45% 55% / 50% 55% 45% 50%; }
+          50% { border-radius: 55% 45% 50% 50% / 45% 50% 55% 50%; }
+          75% { border-radius: 50% 50% 45% 55% / 55% 45% 50% 55%; }
+        }
+        .blob-bubble {
+          animation: blob-float 4s ease-in-out infinite, blob-wobble 8s ease-in-out infinite;
+        }
+      `}</style>
+      
+      {progress >= blockToProgress(19_426_587) && (() => {
+        const dencunProgress = blockToProgress(19_426_587)
+        const blobIntensity = Math.min(1, (progress - dencunProgress) * 3)
+        
+        // Generate blob positions - spread across width, only in post-Dencun section
+        const blobs = [
+          { id: 1, x: 20, y: 85, size: 12, delay: 0, opacity: 0.25 },
+          { id: 2, x: 35, y: 88, size: 8, delay: 0.5, opacity: 0.2 },
+          { id: 3, x: 55, y: 83, size: 15, delay: 1, opacity: 0.3 },
+          { id: 4, x: 70, y: 90, size: 10, delay: 1.5, opacity: 0.22 },
+          { id: 5, x: 80, y: 86, size: 9, delay: 2, opacity: 0.18 },
+          { id: 6, x: 25, y: 92, size: 14, delay: 2.5, opacity: 0.28 },
+          { id: 7, x: 45, y: 95, size: 11, delay: 3, opacity: 0.24 },
+          { id: 8, x: 65, y: 93, size: 7, delay: 3.5, opacity: 0.15 },
+          { id: 9, x: 15, y: 89, size: 13, delay: 4, opacity: 0.26 },
+          { id: 10, x: 75, y: 84, size: 10, delay: 4.5, opacity: 0.2 },
+        ]
+        
+        return blobs.map(blob => (
+          <div
+            key={blob.id}
+            className="blob-bubble absolute"
+            style={{
+              '--blob-opacity': blob.opacity * blobIntensity,
+              left: `${blob.x}%`,
+              top: `${blob.y}%`,
+              width: `${blob.size}px`,
+              height: `${blob.size}px`,
+              background: 'radial-gradient(ellipse at 30% 30%, rgba(45, 212, 191, 0.6) 0%, rgba(6, 182, 212, 0.3) 50%, rgba(6, 182, 212, 0.1) 100%)',
+              boxShadow: '0 0 10px rgba(6, 182, 212, 0.3), inset 0 0 5px rgba(255,255,255,0.2)',
+              animationDelay: `${blob.delay}s, ${blob.delay * 0.7}s`,
+              opacity: blob.opacity * blobIntensity,
+            } as React.CSSProperties}
+          />
+        ))
+      })()}
     </div>
   )
 }

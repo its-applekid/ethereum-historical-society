@@ -28,46 +28,73 @@ export function LiveBlockFeed({ variant = 'full', maxBlocks = 5 }: LiveBlockFeed
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    // Public RPC endpoints with fallbacks
+    const RPC_ENDPOINTS = [
+      'https://ethereum.publicnode.com',
+      'https://rpc.ankr.com/eth',
+      'https://cloudflare-eth.com',
+      'https://eth.llamarpc.com',
+      'https://1rpc.io/eth',
+    ]
+    let currentRpcIndex = 0
+
     // Skip WebSocket on static hosting (GitHub Pages) - go straight to polling
     const startPolling = () => {
       // Fallback: poll every 12 seconds
       const poll = async () => {
-        try {
-          // Use public RPC endpoint
-          const response = await fetch('https://eth.llamarpc.com', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              jsonrpc: '2.0',
-              method: 'eth_getBlockByNumber',
-              params: ['latest', false],
-              id: 1,
-            }),
-          })
+        let lastError: Error | null = null
+        
+        // Try each RPC endpoint until one works
+        for (let i = 0; i < RPC_ENDPOINTS.length; i++) {
+          const rpcIndex = (currentRpcIndex + i) % RPC_ENDPOINTS.length
+          const rpcUrl = RPC_ENDPOINTS[rpcIndex]
           
-          const data = await response.json()
-          if (data.result) {
-            const block: BlockInfo = {
-              number: parseInt(data.result.number, 16),
-              timestamp: parseInt(data.result.timestamp, 16),
-              hash: data.result.hash,
-              gasUsed: parseInt(data.result.gasUsed, 16),
-              baseFeeGwei: data.result.baseFeePerGas 
-                ? parseInt(data.result.baseFeePerGas, 16) / 1e9 
-                : undefined,
-            }
-            
-            setBlocks(prev => {
-              // Only add if it's a new block
-              if (prev.length === 0 || prev[0].number !== block.number) {
-                return [block, ...prev].slice(0, maxBlocks)
-              }
-              return prev
+          try {
+            const response = await fetch(rpcUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                jsonrpc: '2.0',
+                method: 'eth_getBlockByNumber',
+                params: ['latest', false],
+                id: 1,
+              }),
             })
-            setIsConnected(true)
-            setError(null)
+          
+            const data = await response.json()
+            if (data.result) {
+              const block: BlockInfo = {
+                number: parseInt(data.result.number, 16),
+                timestamp: parseInt(data.result.timestamp, 16),
+                hash: data.result.hash,
+                gasUsed: parseInt(data.result.gasUsed, 16),
+                baseFeeGwei: data.result.baseFeePerGas 
+                  ? parseInt(data.result.baseFeePerGas, 16) / 1e9 
+                  : undefined,
+              }
+              
+              setBlocks(prev => {
+                // Only add if it's a new block
+                if (prev.length === 0 || prev[0].number !== block.number) {
+                  return [block, ...prev].slice(0, maxBlocks)
+                }
+                return prev
+              })
+              setIsConnected(true)
+              setError(null)
+              // Remember which RPC worked
+              currentRpcIndex = rpcIndex
+              return // Success, exit the loop
+            }
+          } catch (e) {
+            lastError = e as Error
+            // Try next RPC
+            continue
           }
-        } catch (e) {
+        }
+        
+        // All RPCs failed
+        if (lastError) {
           setError('Failed to fetch blocks')
         }
       }

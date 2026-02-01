@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react'
 
 // YouTube video ID for "The Cyberpunk Runner" by Yuri Petrovski
 const YOUTUBE_VIDEO_ID = 'ja36Fe-m60k'
@@ -8,7 +8,13 @@ interface AudioPlayerProps {
   autoPlay?: boolean
 }
 
-export function AudioPlayer({ autoPlay = false }: AudioPlayerProps) {
+export interface AudioPlayerRef {
+  play: () => void
+  pause: () => void
+  toggle: () => void
+}
+
+export const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>(({ autoPlay = false }, ref) => {
   const [isPlaying, setIsPlaying] = useState(autoPlay)
   const [isExpanded, setIsExpanded] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -72,6 +78,13 @@ export function AudioPlayer({ autoPlay = false }: AudioPlayerProps) {
       playerRef.current.pauseVideo()
     }
   }, [isPlaying])
+
+  // Expose methods to parent via ref
+  useImperativeHandle(ref, () => ({
+    play: () => setIsPlaying(true),
+    pause: () => setIsPlaying(false),
+    toggle: () => setIsPlaying(prev => !prev),
+  }))
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying)
@@ -177,7 +190,7 @@ export function AudioPlayer({ autoPlay = false }: AudioPlayerProps) {
       )}
     </div>
   )
-}
+})
 
 // TypeScript declarations for YouTube IFrame API
 declare global {

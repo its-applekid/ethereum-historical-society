@@ -1,5 +1,6 @@
 {
-  "name": "ethereum-historical-society",
+  "name": "ethereum-archive",
+  "homepage": "https://its-applekid.github.io/ethereum-archive/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
