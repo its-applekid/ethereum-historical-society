@@ -77,7 +77,7 @@ export const AutoPlay = forwardRef<AutoPlayRef, AutoPlayProps>(({ speed = 50 }, 
   }
 
   return (
-    <div className="fixed bottom-20 left-4 z-50 hidden md:block">
+    <div className="relative">
       <button
         onClick={handlePlayPause}
         className={`

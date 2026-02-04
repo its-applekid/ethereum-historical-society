@@ -62,7 +62,7 @@ export function TagFilter({ activeTags, onTagsChange, totalEvents, filteredCount
   const isFiltered = !allActive
 
   return (
-    <div className="fixed bottom-36 left-4 z-50" ref={panelRef}>
+    <div className="relative" ref={panelRef}>
       {/* Popout Panel */}
       {isOpen && (
         <div className="absolute bottom-14 left-0 w-72 bg-[var(--bg-secondary)] rounded-xl border border-[var(--bg-tertiary)] shadow-xl overflow-hidden animate-in slide-in-from-bottom-2 duration-200">

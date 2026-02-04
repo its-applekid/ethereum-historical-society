@@ -3,13 +3,11 @@ import { Timeline } from './components/Timeline'
 import { Header } from './components/Header'
 import { DetailPanel } from './components/DetailPanel'
 import { L2Chains } from './components/L2Chains'
-import { AudioPlayer } from './components/AudioPlayer'
 import type { AudioPlayerRef } from './components/AudioPlayer'
-import { AutoPlay } from './components/AutoPlay'
 import type { AutoPlayRef } from './components/AutoPlay'
+import { ControlStack } from './components/ControlStack'
 import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
-import { TagFilter } from './components/TagFilter'
 import { TIMELINE_DATA } from './data/timeline'
 import type { TimelineNode, Tag } from './data/timeline'
 
@@ -108,15 +106,11 @@ function App() {
     <div className="min-h-screen bg-[var(--bg-primary)]">
       <Header />
 
-      {/* Audio player - Yuri Petrovski's "The Cyberpunk Runner" */}
-      <AudioPlayer ref={audioRef} />
-      
-      {/* Auto-play - simple auto-scroll (desktop only, 2x speed) */}
-      <AutoPlay ref={autoPlayRef} speed={1200} />
-      
-      {/* Tag Filter - bottom left popout */}
-      <TagFilter 
-        activeTags={activeTags} 
+      {/* Bottom-left control stack (audio, auto-scroll, filter) */}
+      <ControlStack
+        audioRef={audioRef}
+        autoPlayRef={autoPlayRef}
+        activeTags={activeTags}
         onTagsChange={setActiveTags}
         totalEvents={TIMELINE_DATA.length}
         filteredCount={filteredNodes.length}

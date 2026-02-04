@@ -98,7 +98,7 @@ export const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>(({ autoP
 
   return (
     <div 
-      className="fixed bottom-4 left-4 z-50"
+      className="relative"
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
