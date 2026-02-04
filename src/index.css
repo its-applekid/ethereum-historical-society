@@ -1,45 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  /* Ethereum colors */
-  --eth-purple: #627EEA;
-  --eth-purple-dark: #3C3C3D;
-  --eth-purple-light: #8C8DFC;
+  /* Gruvbox palette */
+  --gruvbox-bg0-h: #1d2021;
+  --gruvbox-bg0: #282828;
+  --gruvbox-bg0-s: #32302f;
+  --gruvbox-bg1: #3c3836;
+  --gruvbox-bg2: #504945;
+  --gruvbox-bg3: #665c54;
+  --gruvbox-bg4: #7c6f64;
+  
+  --gruvbox-fg0: #fbf1c7;
+  --gruvbox-fg1: #ebdbb2;
+  --gruvbox-fg2: #d5c4a1;
+  --gruvbox-fg3: #bdae93;
+  --gruvbox-fg4: #a89984;
+  
+  --gruvbox-red: #cc241d;
+  --gruvbox-red-bright: #fb4934;
+  --gruvbox-green: #98971a;
+  --gruvbox-green-bright: #b8bb26;
+  --gruvbox-yellow: #d79921;
+  --gruvbox-yellow-bright: #fabd2f;
+  --gruvbox-blue: #458588;
+  --gruvbox-blue-bright: #83a598;
+  --gruvbox-purple: #b16286;
+  --gruvbox-purple-bright: #d3869b;
+  --gruvbox-aqua: #689d6a;
+  --gruvbox-aqua-bright: #8ec07c;
+  --gruvbox-orange: #d65d0e;
+  --gruvbox-orange-bright: #fe8019;
+  
+  /* Semantic mappings (Ethereum theme using Gruvbox) */
+  --eth-purple: var(--gruvbox-blue-bright);
+  --eth-purple-dark: var(--gruvbox-bg2);
+  --eth-purple-light: var(--gruvbox-aqua-bright);
   
   /* Era colors */
-  --era-frontier: #1B1B1B;
-  --era-homestead: #2D5016;
-  --era-metropolis: #4A1A7A;
-  --era-beacon: #FF6B35;
-  --era-merge: #00D395;
+  --era-frontier: var(--gruvbox-bg0-h);
+  --era-homestead: var(--gruvbox-green);
+  --era-metropolis: var(--gruvbox-purple);
+  --era-beacon: var(--gruvbox-orange-bright);
+  --era-merge: var(--gruvbox-aqua-bright);
 }
 
 /* Dark theme (default) */
 :root, .dark {
-  --bg-primary: #0A0A0B;
-  --bg-secondary: #141416;
-  --bg-tertiary: #1C1C1F;
-  --text-primary: #FFFFFF;
-  --text-secondary: #A1A1AA;
-  --text-muted: #71717A;
-  --glass-bg: rgba(20, 20, 22, 0.7);
-  --glass-bg-transparent: rgba(20, 20, 22, 0.3);
-  --glass-bg-solid: rgba(20, 20, 22, 0.95);
+  --bg-primary: var(--gruvbox-bg0-h);
+  --bg-secondary: var(--gruvbox-bg0);
+  --bg-tertiary: var(--gruvbox-bg1);
+  --text-primary: var(--gruvbox-fg1);
+  --text-secondary: var(--gruvbox-fg3);
+  --text-muted: var(--gruvbox-fg4);
+  --glass-bg: rgba(40, 40, 40, 0.7);
+  --glass-bg-transparent: rgba(40, 40, 40, 0.3);
+  --glass-bg-solid: rgba(40, 40, 40, 0.95);
 }
 
 /* Light theme */
 .light {
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F4F4F5;
-  --bg-tertiary: #E4E4E7;
-  --text-primary: #18181B;
-  --text-secondary: #52525B;
-  --text-muted: #A1A1AA;
-  --eth-purple: #4F46E5;
-  --eth-purple-light: #6366F1;
-  --glass-bg: rgba(244, 244, 245, 0.7);
-  --glass-bg-transparent: rgba(244, 244, 245, 0.3);
-  --glass-bg-solid: rgba(244, 244, 245, 0.95);
+  --bg-primary: var(--gruvbox-fg0);
+  --bg-secondary: var(--gruvbox-fg1);
+  --bg-tertiary: var(--gruvbox-fg2);
+  --text-primary: var(--gruvbox-bg0);
+  --text-secondary: var(--gruvbox-bg2);
+  --text-muted: var(--gruvbox-bg4);
+  --eth-purple: var(--gruvbox-blue);
+  --eth-purple-light: var(--gruvbox-blue-bright);
+  --glass-bg: rgba(251, 241, 199, 0.7);
+  --glass-bg-transparent: rgba(251, 241, 199, 0.3);
+  --glass-bg-solid: rgba(251, 241, 199, 0.95);
 }
 
 body {
