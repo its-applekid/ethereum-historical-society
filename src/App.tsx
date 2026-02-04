@@ -120,9 +120,27 @@ function App() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent">
               The Ethereum Archive
             </h1>
-            <p className="text-xl md:text-2xl text-[var(--text-secondary)]">
+            <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-8">
               A complete history of Ethereum's evolution — from genesis to the present
             </p>
+            
+            {/* Scroll indicator */}
+            <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
+              <span>Scroll through history</span>
+              <svg 
+                className="w-5 h-5 animate-bounce" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+                />
+              </svg>
+            </div>
           </div>
         </section>
 
