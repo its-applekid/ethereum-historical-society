@@ -49,6 +49,8 @@
   --bg-primary: var(--gruvbox-bg0-h);
   --bg-secondary: var(--gruvbox-bg0);
   --bg-tertiary: var(--gruvbox-bg1);
+  --bg-card: var(--gruvbox-bg1);
+  --bg-card-accent: var(--gruvbox-bg2);
   --text-primary: var(--gruvbox-fg1);
   --text-secondary: var(--gruvbox-fg3);
   --text-muted: var(--gruvbox-fg4);
@@ -62,6 +64,8 @@
   --bg-primary: var(--gruvbox-fg0);
   --bg-secondary: var(--gruvbox-fg1);
   --bg-tertiary: var(--gruvbox-fg2);
+  --bg-card: var(--gruvbox-fg1);
+  --bg-card-accent: var(--gruvbox-fg2);
   --text-primary: var(--gruvbox-bg0);
   --text-secondary: var(--gruvbox-bg2);
   --text-muted: var(--gruvbox-bg4);

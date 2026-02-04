@@ -100,7 +100,7 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
         }
       `}
       style={{ 
-        backgroundColor: 'var(--gruvbox-bg1)',
+        backgroundColor: 'var(--bg-card)',
         borderLeftWidth: '3px',
         borderLeftColor: accentColor,
       }}
@@ -112,7 +112,7 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
             <span 
               className="px-2 py-0.5 rounded text-xs font-medium"
               style={{
-                backgroundColor: 'var(--gruvbox-bg2)',
+                backgroundColor: 'var(--bg-card-accent)',
                 color: accentColor,
               }}
             >
@@ -121,7 +121,7 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
           )}
           <span 
             className="text-sm shrink-0 ml-2"
-            style={{ color: 'var(--gruvbox-fg4)' }}
+            style={{ color: 'var(--text-muted)' }}
           >
             {formattedDate}
           </span>
@@ -130,7 +130,7 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
         {/* Title */}
         <h3 
           className="text-lg font-semibold leading-tight mb-3"
-          style={{ color: 'var(--gruvbox-fg1)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           {node.title}
         </h3>
@@ -138,7 +138,7 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
         {/* Summary */}
         <p 
           className="text-sm mb-3"
-          style={{ color: 'var(--gruvbox-fg3)' }}
+          style={{ color: 'var(--text-secondary)' }}
         >
           {node.summary}
         </p>
@@ -152,8 +152,8 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
                   key={eip}
                   className="px-2 py-0.5 rounded text-xs font-mono"
                   style={{
-                    backgroundColor: 'var(--gruvbox-bg2)',
-                    color: 'var(--gruvbox-fg4)',
+                    backgroundColor: 'var(--bg-card-accent)',
+                    color: 'var(--text-muted)',
                   }}
                 >
                   EIP-{eip}
@@ -167,7 +167,7 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
           {node.blockNumber !== undefined && (
             <span 
               className="text-xs font-mono shrink-0 ml-2"
-              style={{ color: 'var(--gruvbox-fg4)' }}
+              style={{ color: 'var(--text-muted)' }}
             >
               {node.approximateBlock && '~'}#{node.blockNumber.toLocaleString()}
             </span>
