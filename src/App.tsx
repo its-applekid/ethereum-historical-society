@@ -111,8 +111,8 @@ function App() {
       {/* Audio player - Yuri Petrovski's "The Cyberpunk Runner" */}
       <AudioPlayer ref={audioRef} />
       
-      {/* Auto-play - simple auto-scroll */}
-      <AutoPlay ref={autoPlayRef} speed={600} />
+      {/* Auto-play - simple auto-scroll (desktop only, 2x speed) */}
+      <AutoPlay ref={autoPlayRef} speed={1200} />
       
       {/* Tag Filter - bottom left popout */}
       <TagFilter 
@@ -138,11 +138,11 @@ function App() {
               A complete history of Ethereum's evolution — from genesis to the present
             </p>
             
-            {/* Centered play button to start experience */}
+            {/* Centered play button to start experience - desktop only */}
             {!experienceStarted ? (
               <button
                 onClick={startExperience}
-                className="group mx-auto w-20 h-20 rounded-full bg-[var(--eth-purple)] hover:bg-[var(--eth-purple-light)] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
+                className="group mx-auto w-20 h-20 rounded-full bg-[var(--eth-purple)] hover:bg-[var(--eth-purple-light)] text-white hidden md:flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
                 title="Start the Journey"
               >
                 <svg className="w-10 h-10 ml-1" fill="currentColor" viewBox="0 0 24 24">
@@ -150,7 +150,7 @@ function App() {
                 </svg>
               </button>
             ) : (
-              <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
+              <div className="hidden md:flex items-center justify-center gap-2 text-[var(--text-muted)]">
                 <span>Scroll to explore</span>
                 <svg 
                   className="w-5 h-5 animate-bounce" 
