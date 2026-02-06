@@ -1966,6 +1966,23 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     ],
   },
   {
+    id: 'dappcon-2018',
+    type: 'milestone',
+    date: '2018-07-19',
+    blockNumber: 5_980_000,
+    approximateBlock: true,
+    title: 'DappCon 2018 (Berlin)',
+    summary: 'First DappCon. Developer conference focused on Ethereum dApps and infrastructure.',
+    era: 'metropolis',
+    importance: 'significant',
+    content: `The inaugural DappCon was held July 19-20, 2018 at the Technical University of Berlin. The conference focused specifically on decentralized applications, tooling, and foundational Ethereum infrastructure. Over 600 developers attended talks covering smart contract development, scaling solutions, and the emerging dApp ecosystem. DappCon established Berlin as a major hub for Ethereum development.`,
+    tags: ['social'],
+    links: [
+      { label: 'DappCon 2018', url: 'https://2018.dappcon.io/' },
+      { label: 'DappCon Official', url: 'https://dappcon.io/' },
+    ],
+  },
+  {
     id: 'ethberlin-2018',
     type: 'milestone',
     date: '2018-09-07',
@@ -1980,6 +1997,24 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     links: [
       { label: 'Devpost Winners', url: 'https://ethberlin.devpost.com/project-gallery' },
       { label: 'ETHBerlin', url: 'https://ethberlin.org/' },
+    ],
+  },
+  {
+    id: 'dappcon-2019',
+    type: 'milestone',
+    date: '2019-08-21',
+    blockNumber: 8_360_000,
+    approximateBlock: true,
+    title: 'DappCon 2019 (Berlin)',
+    summary: 'Second DappCon returns to Berlin. Deep dives into Ethereum 2.0 and layer 2.',
+    era: 'istanbul',
+    importance: 'significant',
+    content: `DappCon 2019 ran August 21-23 at the Technical University of Berlin, followed by the ETHBerlinZwei hackathon. The conference expanded to three days with tracks covering Ethereum 2.0 beacon chain progress, state channels, Plasma implementations, and emerging layer 2 solutions. The bear market atmosphere couldn't dampen builder enthusiasm.`,
+    tags: ['social'],
+    links: [
+      { label: 'DappCon 2019', url: 'https://2019.dappcon.io/' },
+      { label: 'ETHBerlinZwei', url: 'https://ethberlinzwei.com/' },
+      { label: 'DappCon Official', url: 'https://dappcon.io/' },
     ],
   },
 
