@@ -295,7 +295,7 @@ For each event, find:
 ### Priority 3: Network Health & Decentralization
 - [ ] **9. Validator Growth Chart** — Background viz showing validator count growing from 21k at Beacon launch to 1M+. (Beaconcha.in/Rated)
 - [ ] **10. Client Diversity Evolution** — Animated pie chart showing client diversity improving (or concerning supermajority periods). (Ethernets/NodeWatch)
-- [ ] **11. Uptime Counter** — "Ethereum has been running for X,XXX days without downtime." Pride metric. (ethereumuptime.org)
+- [x] **11. Uptime Counter** — "Ethereum has been running for X,XXX days without downtime." Pride metric. (ethereumuptime.org)
 - [ ] **12. Censorship Watch** — OFAC-compliant block percentage over time. Important neutrality story. Tornado Cash impact. (MEVWatch)
 
 ### Priority 4: Key Milestones to Add as Events
