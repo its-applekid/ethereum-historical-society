@@ -1,4 +1,42 @@
+import { useState, useEffect } from 'react'
 import { useTheme } from '../hooks/useTheme'
+
+function UptimeCounter() {
+  const [uptime, setUptime] = useState({ days: 0, hours: 0, minutes: 0 })
+  
+  useEffect(() => {
+    const genesisTime = new Date('2015-07-30T15:26:13Z').getTime()
+    
+    const updateUptime = () => {
+      const now = Date.now()
+      const diff = now - genesisTime
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+      
+      setUptime({ days, hours, minutes })
+    }
+    
+    updateUptime()
+    const interval = setInterval(updateUptime, 60000) // Update every minute
+    
+    return () => clearInterval(interval)
+  }, [])
+  
+  return (
+    <div 
+      className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--bg-quaternary)]"
+      title="Ethereum has been running continuously since the genesis block on July 30, 2015"
+    >
+      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+      <span className="text-sm font-medium text-[var(--text-primary)]">
+        {uptime.days.toLocaleString()} days
+      </span>
+      <span className="text-xs text-[var(--text-muted)]">uptime</span>
+    </div>
+  )
+}
 
 function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme()
@@ -66,6 +104,7 @@ export function Header() {
           >
             GitHub
           </a>
+          <UptimeCounter />
           <ThemeToggle />
         </nav>
       </div>
