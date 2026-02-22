@@ -1,6 +1,72 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from '../hooks/useTheme'
 
+function BurnedCounter() {
+  const [burned, setBurned] = useState({ total: 0, perSecond: 0 })
+  const [displayBurned, setDisplayBurned] = useState(0)
+  
+  useEffect(() => {
+    // Fetch burned ETH data from ultrasound.money API
+    const fetchBurnedData = async () => {
+      try {
+        const response = await fetch('https://ultrasound.money/api/v2/fees/burned')
+        if (!response.ok) throw new Error('API request failed')
+        
+        const data = await response.json()
+        // API returns burned amount in wei, convert to ETH
+        const totalBurned = parseFloat(data.totalBurned) / 1e18
+        const burnRate = parseFloat(data.burnRate1d) / 86400 // daily rate to per-second
+        
+        setBurned({ total: totalBurned, perSecond: burnRate })
+        setDisplayBurned(totalBurned)
+      } catch (error) {
+        // Fallback: use approximate values as of Feb 2026
+        // EIP-1559 launched Aug 5, 2021 - roughly 4.5 years of burning
+        // Approximate 4.5M ETH burned, ~0.03 ETH/sec average
+        console.warn('Burned ETH API failed, using approximation:', error)
+        setBurned({ total: 4500000, perSecond: 0.03 })
+        setDisplayBurned(4500000)
+      }
+    }
+    
+    fetchBurnedData()
+    const fetchInterval = setInterval(fetchBurnedData, 300000) // Refresh every 5 minutes
+    
+    return () => clearInterval(fetchInterval)
+  }, [])
+  
+  // Animate the counter smoothly
+  useEffect(() => {
+    if (burned.perSecond === 0) return
+    
+    const interval = setInterval(() => {
+      setDisplayBurned(prev => prev + burned.perSecond)
+    }, 1000)
+    
+    return () => clearInterval(interval)
+  }, [burned.perSecond])
+  
+  const formatBurned = (value: number) => {
+    if (value >= 1000000) {
+      return `${(value / 1000000).toFixed(2)}M`
+    }
+    return value.toFixed(0)
+  }
+  
+  return (
+    <div 
+      className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--bg-quaternary)]"
+      title="Total ETH burned since EIP-1559 (London fork, August 5, 2021). Burning makes ETH deflationary."
+    >
+      <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+      <span className="text-sm font-medium text-[var(--text-primary)]">
+        {formatBurned(displayBurned)} ETH
+      </span>
+      <span className="text-xs text-[var(--text-muted)]">burned 🔥</span>
+    </div>
+  )
+}
+
 function UptimeCounter() {
   const [uptime, setUptime] = useState({ days: 0, hours: 0, minutes: 0 })
   
@@ -104,6 +170,7 @@ export function Header() {
           >
             GitHub
           </a>
+          <BurnedCounter />
           <UptimeCounter />
           <ThemeToggle />
         </nav>
