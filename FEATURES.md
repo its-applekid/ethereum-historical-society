@@ -284,7 +284,7 @@ For each event, find:
 - [ ] **1. Historic Gas + USD Context** — In detail view: avg gas price at that block + USD value of a typical tx. Makes every event tangible. (Etherscan + CoinGecko)
 - [x] **2. Block Links to Etherscan** — Every blockNumber becomes a clickable link in DetailPanel. ✓
 - [ ] **3. ETH Supply Animation** — Animate supply over time: inflationary PoW era, deflationary post-Merge. The economic narrative of Ethereum. (ultrasound.money)
-- [ ] **4. ETH Burned Counter** — Running total of ETH burned since EIP-1559. Dramatic visualization of value accrual.
+- [x] **4. ETH Burned Counter** — Running total of ETH burned since EIP-1559. Dramatic visualization of value accrual.
 
 ### Priority 2: The Scaling Story (Visually Compelling)
 - [x] **5. Blob Bubbles** — Floating translucent bubbles in background, appearing after Dencun. Wobble + float animation. ✓
