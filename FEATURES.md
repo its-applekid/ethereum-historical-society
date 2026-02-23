@@ -355,7 +355,7 @@ Events to add:
 - [x] **DevConnect** — Amsterdam 2022, Istanbul 2023, Argentina 2025
 - [x] **ETHGlobal hackathons** — Added ETHWaterloo 2017, ETHSanFrancisco 2018, ETHNewYork 2019, ETHBerlin 2018
 - [ ] **EthereumConf** — Early conferences
-- [ ] **Edcon** — Community dev conference (various locations)
+- [x] **Edcon** — Community dev conference (added 2017 Paris, 2024 Tokyo)
 - [ ] **More regional events** — Ongoing additions
 
 Include: dates, locations, notable announcements, links to recordings/recaps.
