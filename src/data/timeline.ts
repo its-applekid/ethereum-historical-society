@@ -381,6 +381,23 @@ export const TIMELINE_DATA: TimelineNode[] = [
     ],
   },
   {
+    id: 'edcon-2017',
+    type: 'milestone',
+    date: '2017-02-17',
+    blockNumber: 3_150_000,
+    approximateBlock: true,
+    title: 'EDCON 2017 (Paris)',
+    summary: 'First Community Ethereum Development Conference in Paris. Foundation of annual dev gathering.',
+    era: 'homestead',
+    importance: 'significant',
+    content: `The inaugural EDCON (Community Ethereum Development Conference) took place at the École Supérieure de Commerce de Paris. It established what would become an annual tradition of bringing together Ethereum developers and researchers from around the world, with a focus on protocol development and real-world applications.`,
+    tags: ['social'],
+    links: [
+      { label: 'EDCON Website', url: 'https://www.edcon.io/' },
+      { label: 'About EDCON History', url: 'https://www.edcon.io/en/about' },
+    ],
+  },
+  {
     id: 'raiden-network',
     type: 'scaling',
     date: '2017-03-01',
@@ -1838,6 +1855,23 @@ This upgrade marked a major step toward account abstraction and improved L2 scal
     tags: ['social', 'scaling'],
     links: [
       { label: 'ETH Denver', url: 'https://www.ethdenver.com/' },
+    ],
+  },
+  {
+    id: 'edcon-2024',
+    type: 'milestone',
+    date: '2024-07-29',
+    blockNumber: 20_350_000,
+    approximateBlock: true,
+    title: 'EDCON 2024 (Tokyo)',
+    summary: 'EDCON returns to Asia. Deep dives on L2 interoperability, ZK proofs, and protocol development.',
+    era: 'cancun',
+    importance: 'significant',
+    content: `EDCON 2024 in Tokyo brought together protocol developers and researchers for deep technical discussions. With the Dencun upgrade enabling cheaper L2 data via EIP-4844, talks focused on cross-L2 communication, ZK-EVM advancements, and the roadmap toward single-slot finality. The event highlighted Ethereum's strong developer community in Asia.`,
+    tags: ['social', 'scaling'],
+    links: [
+      { label: 'EDCON Website', url: 'https://www.edcon.io/' },
+      { label: 'EDCON 2024 Details', url: 'https://www.edcon.io/en/about' },
     ],
   },
 
