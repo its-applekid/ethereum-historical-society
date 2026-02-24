@@ -35,13 +35,13 @@ function BurnedCounter() {
     return () => clearInterval(fetchInterval)
   }, [])
   
-  // Animate the counter smoothly
+  // Animate the counter - update every 10 seconds to reduce re-renders
   useEffect(() => {
     if (burned.perSecond === 0) return
     
     const interval = setInterval(() => {
-      setDisplayBurned(prev => prev + burned.perSecond)
-    }, 1000)
+      setDisplayBurned(prev => prev + (burned.perSecond * 10))
+    }, 10000)
     
     return () => clearInterval(interval)
   }, [burned.perSecond])
@@ -55,7 +55,7 @@ function BurnedCounter() {
   
   return (
     <div 
-      className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--bg-quaternary)]"
+      className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--bg-quaternary)] transform-gpu"
       title="Total ETH burned since EIP-1559 (London fork, August 5, 2021). Burning makes ETH deflationary."
     >
       <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
@@ -92,7 +92,7 @@ function UptimeCounter() {
   
   return (
     <div 
-      className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--bg-quaternary)]"
+      className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--bg-quaternary)] transform-gpu"
       title="Ethereum has been running continuously since the genesis block on July 30, 2015"
     >
       <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -138,8 +138,8 @@ function ThemeToggle() {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-[var(--bg-primary)]/80 border-b border-[var(--bg-tertiary)]">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[var(--bg-primary)] border-b border-[var(--bg-tertiary)] shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between will-change-contents">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--eth-purple)] to-[var(--eth-purple-light)] flex items-center justify-center">
             <span className="text-white font-bold text-sm">Ξ</span>
