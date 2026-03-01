@@ -874,6 +874,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'London Block', url: 'https://etherscan.io/block/12965000' },
       { label: 'ultrasound.money (burn tracker)', url: 'https://ultrasound.money/' },
       { label: 'Tim Beiko Announcement', url: 'https://twitter.com/TimBeiko/status/1423307662159888388' },
+      { label: 'AllCoreDevs #111 (Timeline Discussion)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%20111.md' },
+      { label: 'AllCoreDevs #108 (EIP-1559 Inclusion)', url: 'https://github.com/ethereum/pm/issues/254' },
     ],
   },
   {
@@ -1077,6 +1079,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Forkcast: Shanghai', url: 'https://forkcast.org/' },
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/17034870' },
       { label: 'ethereum.org Withdrawals', url: 'https://ethereum.org/en/staking/withdrawals/' },
+      { label: 'EIP-4895 (Withdrawals)', url: 'https://eips.ethereum.org/EIPS/eip-4895' },
+      { label: 'AllCoreDevs Meetings', url: 'https://github.com/ethereum/pm/tree/master/AllCoreDevs-EL-Meetings' },
     ],
   },
   {
@@ -1190,6 +1194,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'EIP-4844 Spec', url: 'https://eips.ethereum.org/EIPS/eip-4844' },
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/19426587' },
       { label: 'Blob Explorer', url: 'https://blobscan.com/' },
+      { label: 'AllCoreDevs #167 (Dencun Planning)', url: 'https://github.com/ethereum/pm/issues/836' },
+      { label: 'Dencun Devnet Specs', url: 'https://github.com/ethereum/execution-specs/tree/master/network-upgrades/mainnet-upgrades/cancun.md' },
     ],
   },
   {

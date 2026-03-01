@@ -306,7 +306,7 @@ For each event, find:
 - [x] **17. Adoption Milestones** — Added PayPal PYUSD (Aug 2023), Spot ETH ETFs (July 2024)
 
 ### Priority 5: Protocol Deep Links
-- [ ] **18. ACD Call Links** — Link each hard fork to the AllCoreDevs calls where it was discussed/finalized. (Forkcast)
+- [x] **18. ACD Call Links** — Link each hard fork to the AllCoreDevs calls where it was discussed/finalized. (Started: added links for London, Shanghai, Dencun)
 - [ ] **19. EIP Status Tracker** — Show EIP lifecycle (Draft → Review → Final) for related EIPs. (EIPs Insight)
 - [ ] **20. Beacon Chain Links** — Post-Merge events link to beacon slot on beaconcha.in.
 - [ ] **21. Roadmap Tags** — Tag events as Surge/Verge/Purge/Splurge. (ethroadmap.com)
