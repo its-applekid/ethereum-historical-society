@@ -341,6 +341,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2017/10/12/byzantium-hf-announcement' },
       { label: 'ethereum.org History', url: 'https://ethereum.org/en/history/#byzantium' },
       { label: 'EIP-196: zkSNARK Precompiles', url: 'https://eips.ethereum.org/EIPS/eip-196' },
+      { label: 'AllCoreDevs #22 (Byzantium Release)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%2022.md' },
+      { label: 'Byzantium Hard Fork Spec', url: 'https://github.com/ethereum/EIPs/blob/master/EIPS/eip-609.md' },
     ],
   },
   {
@@ -548,6 +550,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/7280000' },
       { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2019/02/22/ethereum-constantinople-st-petersburg-upgrade-announcement' },
       { label: 'EIP-1283 Vulnerability', url: 'https://medium.com/chainsecurity/constantinople-enables-new-reentrancy-attack-ace4088297d9' },
+      { label: 'AllCoreDevs #53 (Constantinople Planning)', url: 'https://github.com/ethereum/pm/issues/66' },
+      { label: 'AllCoreDevs #54 (St. Petersburg)', url: 'https://github.com/ethereum/pm/issues/74' },
     ],
   },
   
@@ -606,6 +610,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/9069000' },
       { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2019/11/20/ethereum-istanbul-upgrade-announcement' },
       { label: 'ethereum.org History', url: 'https://ethereum.org/en/history/#istanbul' },
+      { label: 'AllCoreDevs #66 (Istanbul Planning)', url: 'https://github.com/ethereum/pm/issues/107' },
+      { label: 'AllCoreDevs #69 (Istanbul Finalization)', url: 'https://github.com/ethereum/pm/issues/118' },
     ],
   },
   {
@@ -641,6 +647,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/9200000' },
       { label: 'EIP-2384', url: 'https://eips.ethereum.org/EIPS/eip-2384' },
       { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2019/12/23/ethereum-muir-glacier-upgrade-announcement' },
+      { label: 'AllCoreDevs #76 (Muir Glacier)', url: 'https://github.com/ethereum/pm/issues/135' },
     ],
   },
   
@@ -854,6 +861,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/12244000' },
       { label: 'Ethereum Blog Announcement', url: 'https://blog.ethereum.org/2021/03/08/ethereum-berlin-upgrade-announcement' },
       { label: 'EIP-2718: Typed Transactions', url: 'https://eips.ethereum.org/EIPS/eip-2718' },
+      { label: 'AllCoreDevs #104 (Berlin Planning)', url: 'https://github.com/ethereum/pm/issues/228' },
+      { label: 'AllCoreDevs #107 (Berlin Finalization)', url: 'https://github.com/ethereum/pm/issues/242' },
     ],
   },
   {
@@ -963,6 +972,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     links: [
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/13773000' },
       { label: 'EIP-4345', url: 'https://eips.ethereum.org/EIPS/eip-4345' },
+      { label: 'AllCoreDevs #124 (Arrow Glacier)', url: 'https://github.com/ethereum/pm/issues/411' },
     ],
   },
   {
