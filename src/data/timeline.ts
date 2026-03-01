@@ -319,6 +319,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'EIP-779: DAO Fork Spec', url: 'https://eips.ethereum.org/EIPS/eip-779' },
       { label: 'Hard Fork Block', url: 'https://etherscan.io/block/1920000' },
       { label: 'Carbonvote Results', url: 'https://web.archive.org/web/20160715215142/http://carbonvote.com/' },
+      { label: 'EF Blog: To Fork or Not to Fork', url: 'https://blog.ethereum.org/2016/07/15/to-fork-or-not-to-fork' },
+      { label: 'EF Blog: DAO Wars (Soft Fork)', url: 'https://blog.ethereum.org/en/2016/06/24/dao-wars-youre-voice-soft-fork-dilemma' },
     ],
   },
   
