@@ -1010,6 +1010,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     links: [
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/15050000' },
       { label: 'EIP-5133', url: 'https://eips.ethereum.org/EIPS/eip-5133' },
+      { label: 'AllCoreDevs #141 (Gray Glacier Updates)', url: 'https://github.com/ethereum/pm/issues/551' },
+      { label: 'AllCoreDevs #142 (Post-fork Review)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%20142.md' },
     ],
   },
   {
@@ -1029,6 +1031,9 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'First PoS Block', url: 'https://etherscan.io/block/15537394' },
       { label: 'ethereum.org Merge Page', url: 'https://ethereum.org/en/roadmap/merge/' },
       { label: 'Vitalik\'s Merge Thread', url: 'https://twitter.com/VitalikButerin/status/1570306185391378434' },
+      { label: 'AllCoreDevs #106 (Early Merge Discussion)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%20106.md' },
+      { label: 'AllCoreDevs #122 (TTD Finalization)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%20122.md' },
+      { label: 'AllCoreDevs #140 (Pre-Merge Testing)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%20140.md' },
     ],
   },
   
