@@ -1,5 +1,14 @@
 import { ERA_INFO } from '../data/timeline'
 import type { TimelineNode, Tag } from '../data/timeline'
+import blockContextData from '../data/block-context.json'
+
+interface BlockContext {
+  blockNumber: number
+  timestamp: number
+  gasPrice: string // in gwei
+  ethPriceUsd: number
+  typicalTxCostUsd: number
+}
 
 // Tag styling for detail view
 const TAG_CONFIG: Record<Tag, { label: string; color: string; bg: string; emoji: string }> = {
@@ -30,6 +39,11 @@ export function DetailPanel({ node, onClose }: DetailPanelProps) {
     month: 'long',
     day: 'numeric',
   })
+
+  // Find block context data if available
+  const blockContext = node.blockNumber 
+    ? (blockContextData as BlockContext[]).find(ctx => ctx.blockNumber === node.blockNumber)
+    : undefined
 
   return (
     <>
@@ -101,6 +115,30 @@ export function DetailPanel({ node, onClose }: DetailPanelProps) {
             <h3 className="text-sm font-medium text-[var(--text-muted)] mb-1">Summary</h3>
             <p className="text-[var(--text-secondary)]">{node.summary}</p>
           </div>
+
+          {/* Historic Gas & USD Context */}
+          {blockContext && (
+            <div className="bg-[var(--bg-tertiary)] rounded-lg p-4">
+              <h3 className="text-sm font-medium text-[var(--text-muted)] mb-3">📊 Context at Block #{node.blockNumber?.toLocaleString()}</h3>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-1">Gas Price</p>
+                  <p className="text-lg font-bold text-[var(--eth-purple)]">{blockContext.gasPrice} gwei</p>
+                </div>
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-1">ETH Price</p>
+                  <p className="text-lg font-bold text-[var(--eth-green)]">${blockContext.ethPriceUsd.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-1">Typical TX</p>
+                  <p className="text-lg font-bold text-[var(--text-primary)]">${blockContext.typicalTxCostUsd}</p>
+                </div>
+              </div>
+              <p className="text-xs text-[var(--text-muted)] mt-3 italic">
+                Cost to send a simple ETH transfer (21,000 gas) at this block
+              </p>
+            </div>
+          )}
 
           {/* Full content */}
           {node.content && (
