@@ -10,6 +10,7 @@ import type { AutoPlayRef } from './components/AutoPlay'
 import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
 import { TagFilter } from './components/TagFilter'
+import { EthereumLogo3D } from './components/EthereumLogo3D'
 import { TIMELINE_DATA } from './data/timeline'
 import type { TimelineNode, Tag } from './data/timeline'
 
@@ -106,6 +107,16 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
+      {/* 3D Ethereum Logo Background */}
+      <EthereumLogo3D
+        rotation={{ x: 0, y: 20, z: 0 }}
+        color="#8B5CF6"
+        opacity={0.15}
+        scale={1.2}
+        enableFog={true}
+        enableVertexJitter={true}
+      />
+      
       <Header />
 
       {/* Audio player - Yuri Petrovski's "The Cyberpunk Runner" */}

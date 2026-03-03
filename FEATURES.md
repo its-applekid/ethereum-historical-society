@@ -112,6 +112,16 @@ Tags: `protocol`, `scaling`, `defi`, `nft`, `social`, `research`, `security`
 - [x] **Rainbow effect at timeline end** — L2 lines get brighter/glowier as you scroll toward present
 - [x] **Live section shimmer** — main line pulses/shimmers only in the live block section (bottom 8%); solid elsewhere
 
+### 3D Ethereum Logo Background
+- [x] **Status:** ✅ Implemented (2026-03-03)
+- [x] **Component:** `src/components/EthereumLogo3D.tsx`
+- [x] **Description:** Translucent 3D Ethereum logo rendered with Three.js as a background layer
+- [x] **Positioning:** Behind timeline content, above base background, below L2 chain lines (z-index: 0)
+- [x] **Visual effects:** Subtle Y-axis rotation (20°/s), soft bob animation, retro vertex jitter, depth fog
+- [x] **Configurable props:** Rotation speed (x/y/z), color (hex), opacity (0-1), scale, fog enable, jitter enable
+- [x] **Performance:** Low-poly geometry (4-sided pyramids), 60fps desktop target, 30fps mobile minimum
+- [x] **Bundle impact:** Three.js adds ~500kb (acceptable for visual enhancement)
+
 ---
 
 ## Phase 3: Immersive
