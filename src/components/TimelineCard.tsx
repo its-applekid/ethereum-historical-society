@@ -99,11 +99,8 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
     day: 'numeric',
   })
   
-  // Get gradient colors from primary tag
-  const gradientColors = primaryTag ? TAG_CONFIG[primaryTag].gradient : DEFAULT_GRADIENT
-  const gradientStyle = {
-    background: `linear-gradient(135deg, ${gradientColors[0]}40 0%, ${gradientColors[1]}50 50%, ${gradientColors[2]}40 100%)`,
-  }
+  // Get border color from primary tag
+  const borderColor = primaryTag ? TAG_CONFIG[primaryTag].gradient[0] : DEFAULT_GRADIENT[0]
 
   /* 
    * NOTE: Image support is commented out for now. 
@@ -111,19 +108,24 @@ export function TimelineCard({ node, isSelected, onClick }: TimelineCardProps) {
    * Uncomment below to re-enable image cards.
    */
   // const hasImage = !!node.imageUrl
-  const hasImage = false // Images disabled - using gradient backgrounds instead
+  const hasImage = false // Images disabled - using simple cards with left border
 
   return (
     <button
       onClick={onClick}
       className={`
-        block w-full rounded-xl border transition-all duration-300 text-left overflow-hidden
+        block w-full rounded-xl border-y border-r transition-all duration-300 text-left overflow-hidden
+        bg-[var(--bg-secondary)]
         ${isSelected 
           ? 'border-[var(--eth-purple)] shadow-lg shadow-[var(--eth-purple)]/20' 
           : 'border-[var(--bg-tertiary)] hover:border-[var(--eth-purple)]/50 hover:shadow-lg'
         }
       `}
-      style={hasImage ? { background: 'transparent' } : gradientStyle}
+      style={{ 
+        borderLeftWidth: '4px', 
+        borderLeftColor: borderColor,
+        borderLeftStyle: 'solid'
+      }}
     >
       {hasImage ? (
         /* Card with image - glassmorphism design (COMMENTED OUT) */
