@@ -4,21 +4,25 @@ import styles from './EthereumLogo3D.module.css';
 
 export interface EthereumLogo3DProps {
   rotation?: { x: number; y: number; z: number };  // degrees per second
-  color?: string;                                   // hex color
-  opacity?: number;                                 // 0-1
-  scale?: number;                                   // size multiplier
-  enableFog?: boolean;                             // scene fog
-  enableVertexJitter?: boolean;                    // retro effect
-  className?: string;                              // additional CSS
+  topColor?: string;                               // hex color for top pyramid
+  bottomColor?: string;                            // hex color for bottom pyramid
+  opacity?: number;                                // 0-1
+  scale?: number;                                  // size multiplier
+  enableFog?: boolean;                            // scene fog
+  enableVertexJitter?: boolean;                   // retro effect
+  pauseRotation?: boolean;                        // pause/rotate pattern vs continuous
+  className?: string;                             // additional CSS
 }
 
 const defaultProps: Required<EthereumLogo3DProps> = {
   rotation: { x: 0, y: 20, z: 0 },
-  color: '#8B5CF6',
-  opacity: 0.15,
+  topColor: '#8c8cff',
+  bottomColor: '#4c4ccc',
+  opacity: 0.8,
   scale: 1.2,
   enableFog: true,
   enableVertexJitter: true,
+  pauseRotation: true,
   className: '',
 };
 
@@ -115,10 +119,21 @@ export function EthereumLogo3D(props: EthereumLogo3DProps) {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Create material
-    const material = new THREE.ShaderMaterial({
+    // Create materials for top and bottom pyramids
+    const topMaterial = new THREE.ShaderMaterial({
       uniforms: {
-        color: { value: new THREE.Color(config.color) },
+        color: { value: new THREE.Color(config.topColor) },
+        time: { value: 0 },
+        opacity: { value: config.opacity },
+      },
+      vertexShader,
+      fragmentShader,
+      transparent: true,
+    });
+
+    const bottomMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        color: { value: new THREE.Color(config.bottomColor) },
         time: { value: 0 },
         opacity: { value: config.opacity },
       },
@@ -135,7 +150,7 @@ export function EthereumLogo3D(props: EthereumLogo3DProps) {
       logoScale * 1.8,
       4
     );
-    const topPyramid = new THREE.Mesh(topPyramidGeometry, material.clone());
+    const topPyramid = new THREE.Mesh(topPyramidGeometry, topMaterial);
     topPyramid.position.y = 1.1 * logoScale;
     scene.add(topPyramid);
 
@@ -144,7 +159,7 @@ export function EthereumLogo3D(props: EthereumLogo3DProps) {
       logoScale * 1.5,
       4
     );
-    const bottomPyramid = new THREE.Mesh(bottomPyramidGeometry, material.clone());
+    const bottomPyramid = new THREE.Mesh(bottomPyramidGeometry, bottomMaterial);
     bottomPyramid.position.y = -0.9 * logoScale;
     bottomPyramid.rotation.x = Math.PI; // Flip upside down
     scene.add(bottomPyramid);
@@ -161,11 +176,15 @@ export function EthereumLogo3D(props: EthereumLogo3DProps) {
 
     // Animation
     let time = 0;
-    const rotationSpeed = {
-      x: (config.rotation.x * Math.PI) / 180,
-      y: (config.rotation.y * Math.PI) / 180,
-      z: (config.rotation.z * Math.PI) / 180,
-    };
+    let rotationPhaseTime = 0;
+    let currentTargetAngle = 0;
+    let isInPause = true;
+    let pauseStartTime = 0;
+
+    const PAUSE_DURATION = 2.0;
+    const ROTATION_DISTANCE = Math.PI / 2; // 90°
+    const BASE_ROTATION_SPEED = Math.PI / 4; // 90° / 2s
+    const EASE_DURATION = 1.0;
 
     function animate() {
       if (!sceneRef.current) return;
@@ -175,14 +194,62 @@ export function EthereumLogo3D(props: EthereumLogo3DProps) {
       const deltaTime = 0.016; // ~60fps
       time += deltaTime;
 
-      // Apply rotations
-      topPyramid.rotation.x += rotationSpeed.x * deltaTime;
-      topPyramid.rotation.y += rotationSpeed.y * deltaTime;
-      topPyramid.rotation.z += rotationSpeed.z * deltaTime;
+      if (config.pauseRotation) {
+        // Pause/rotate pattern (from vector-eth)
+        if (isInPause) {
+          const pauseElapsed = time - pauseStartTime;
+          if (pauseElapsed >= PAUSE_DURATION) {
+            isInPause = false;
+            rotationPhaseTime = 0;
+            currentTargetAngle = (currentTargetAngle + Math.PI / 2) % (Math.PI * 2);
+          }
+        } else {
+          rotationPhaseTime += deltaTime;
+          const rotationDuration = ROTATION_DISTANCE / BASE_ROTATION_SPEED;
+          const progress = Math.min(rotationPhaseTime / rotationDuration, 1);
 
-      bottomPyramid.rotation.x += rotationSpeed.x * deltaTime;
-      bottomPyramid.rotation.y += rotationSpeed.y * deltaTime;
-      bottomPyramid.rotation.z += rotationSpeed.z * deltaTime;
+          let easedProgress;
+          const easeFraction = EASE_DURATION / rotationDuration;
+
+          if (progress < easeFraction) {
+            const t = progress / easeFraction;
+            easedProgress = easeFraction * (1 - Math.cos(t * Math.PI / 2));
+          } else if (progress > 1 - easeFraction) {
+            const t = (progress - (1 - easeFraction)) / easeFraction;
+            easedProgress = (1 - easeFraction) + easeFraction * Math.sin(t * Math.PI / 2);
+          } else {
+            easedProgress = progress;
+          }
+
+          const startAngle = (currentTargetAngle - ROTATION_DISTANCE + Math.PI * 4) % (Math.PI * 2);
+          const currentAngle = startAngle + easedProgress * ROTATION_DISTANCE;
+
+          topPyramid.rotation.y = currentAngle;
+          bottomPyramid.rotation.y = currentAngle;
+
+          if (progress >= 1) {
+            isInPause = true;
+            pauseStartTime = time;
+            topPyramid.rotation.y = currentTargetAngle;
+            bottomPyramid.rotation.y = currentTargetAngle;
+          }
+        }
+      } else {
+        // Continuous rotation
+        const rotationSpeed = {
+          x: (config.rotation.x * Math.PI) / 180,
+          y: (config.rotation.y * Math.PI) / 180,
+          z: (config.rotation.z * Math.PI) / 180,
+        };
+
+        topPyramid.rotation.x += rotationSpeed.x * deltaTime;
+        topPyramid.rotation.y += rotationSpeed.y * deltaTime;
+        topPyramid.rotation.z += rotationSpeed.z * deltaTime;
+
+        bottomPyramid.rotation.x += rotationSpeed.x * deltaTime;
+        bottomPyramid.rotation.y += rotationSpeed.y * deltaTime;
+        bottomPyramid.rotation.z += rotationSpeed.z * deltaTime;
+      }
 
       // Subtle bob animation
       topPyramid.position.y = 1.1 * logoScale + Math.sin(time) * 0.065;
@@ -224,7 +291,7 @@ export function EthereumLogo3D(props: EthereumLogo3DProps) {
         sceneRef.current = null;
       }
     };
-  }, [config.color, config.opacity, config.scale, config.enableFog, config.enableVertexJitter, config.rotation.x, config.rotation.y, config.rotation.z]);
+  }, [config.topColor, config.bottomColor, config.opacity, config.scale, config.enableFog, config.enableVertexJitter, config.pauseRotation, config.rotation.x, config.rotation.y, config.rotation.z]);
 
   return (
     <canvas

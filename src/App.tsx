@@ -108,14 +108,7 @@ function App() {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* 3D Ethereum Logo Background */}
-      <EthereumLogo3D
-        rotation={{ x: 0, y: 20, z: 0 }}
-        color="#8B5CF6"
-        opacity={0.15}
-        scale={1.2}
-        enableFog={true}
-        enableVertexJitter={true}
-      />
+      <EthereumLogo3D />
       
       <Header />
 
