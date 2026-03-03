@@ -135,7 +135,7 @@ function App() {
         {/* Hero Section */}
         <section className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[var(--text-primary)] dark:bg-gradient-to-r dark:from-[var(--eth-purple)] dark:to-[var(--eth-purple-light)] dark:bg-clip-text dark:text-transparent">
               The Ethereum Archive
             </h1>
             <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-8">
