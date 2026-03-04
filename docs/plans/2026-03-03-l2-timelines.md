@@ -7,7 +7,7 @@
 ## Architecture Decisions
 
 1. **Separate data files per chain** (modular, easier to maintain)
-2. **3D rotate transition** (distinctive visual effect)
+2. **Background line movement for chain switching** - Active chain's line moves to center, others fade back
 3. **Scroll-based logo unlocking** (discover L2s as you scroll)
 4. **Query param for chain state** (`?chain=optimism`)
 5. **Start with 2-3 events per L2** (proof-of-concept, expand nightly)
