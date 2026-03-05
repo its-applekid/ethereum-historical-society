@@ -1,5 +1,5 @@
-import { ERA_INFO } from '../data/timeline'
-import type { TimelineNode, Tag } from '../data/timeline'
+import { ERA_INFO } from '../data/timeline-mainnet'
+import type { TimelineNode, Tag } from '../data/timeline-mainnet'
 import blockContextData from '../data/block-context.json'
 
 interface BlockContext {

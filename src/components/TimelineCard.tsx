@@ -1,4 +1,4 @@
-import type { TimelineNode, Tag } from '../data/timeline'
+import type { TimelineNode, Tag } from '../data/timeline-mainnet'
 
 interface TimelineCardProps {
   node: TimelineNode

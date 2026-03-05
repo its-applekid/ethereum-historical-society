@@ -1,5 +1,5 @@
-import { ERA_INFO, getNodesByEra } from '../data/timeline'
-import type { TimelineNode, Era } from '../data/timeline'
+import { ERA_INFO, getNodesByEra } from '../data/timeline-mainnet'
+import type { TimelineNode, Era } from '../data/timeline-mainnet'
 import { TimelineCard } from './TimelineCard'
 import { EraMarker } from './EraMarker'
 

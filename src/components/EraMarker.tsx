@@ -1,5 +1,5 @@
-import { ERA_INFO } from '../data/timeline'
-import type { Era } from '../data/timeline'
+import { ERA_INFO } from '../data/timeline-mainnet'
+import type { Era } from '../data/timeline-mainnet'
 
 interface EraMarkerProps {
   era: Era

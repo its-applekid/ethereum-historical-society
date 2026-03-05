@@ -11,8 +11,8 @@ import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
 import { TagFilter } from './components/TagFilter'
 import { EthereumLogo3D } from './components/EthereumLogo3D'
-import { TIMELINE_DATA } from './data/timeline'
-import type { TimelineNode, Tag } from './data/timeline'
+import { TIMELINE_DATA } from './data/timeline-mainnet'
+import type { TimelineNode, Tag } from './data/timeline-mainnet'
 
 // All available tags
 const ALL_TAGS: Tag[] = ['protocol', 'scaling', 'defi', 'nft', 'social', 'research', 'security', 'adoption', 'tvl', 'blobs']

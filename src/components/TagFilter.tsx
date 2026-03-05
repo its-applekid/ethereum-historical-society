@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import type { Tag } from '../data/timeline'
+import type { Tag } from '../data/timeline-mainnet'
 
 const TAG_INFO: Record<Tag, { label: string; color: string; emoji: string }> = {
   protocol: { label: 'Protocol', color: '#8B5CF6', emoji: '⛓️' },
