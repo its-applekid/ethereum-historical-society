@@ -3,13 +3,11 @@ import { Timeline } from './components/Timeline'
 import { Header } from './components/Header'
 import { DetailPanel } from './components/DetailPanel'
 import { L2Chains } from './components/L2Chains'
-import { AudioPlayer } from './components/AudioPlayer'
 import type { AudioPlayerRef } from './components/AudioPlayer'
-import { AutoPlay } from './components/AutoPlay'
 import type { AutoPlayRef } from './components/AutoPlay'
+import { ControlStack } from './components/ControlStack'
 import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
-import { TagFilter } from './components/TagFilter'
 import { EthereumLogo3D } from './components/EthereumLogo3D'
 import { TIMELINE_DATA } from './data/timeline'
 import type { TimelineNode, Tag } from './data/timeline'
@@ -21,7 +19,6 @@ function App() {
   const [selectedNode, setSelectedNode] = useState<TimelineNode | null>(null)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeTags, setActiveTags] = useState<Tag[]>(ALL_TAGS)
-  const [experienceStarted, setExperienceStarted] = useState(false)
   const timelineRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<AudioPlayerRef>(null)
   const autoPlayRef = useRef<AutoPlayRef>(null)
@@ -65,13 +62,6 @@ function App() {
     }
   }, [])
 
-  // Start the full experience - scroll + music
-  const startExperience = useCallback(() => {
-    setExperienceStarted(true)
-    audioRef.current?.play()
-    autoPlayRef.current?.play()
-  }, [])
-
   // Filter timeline nodes based on active tags
   const filteredNodes = useMemo(() => {
     // No tags active = show nothing
@@ -112,15 +102,11 @@ function App() {
       
       <Header />
 
-      {/* Audio player - Yuri Petrovski's "The Cyberpunk Runner" */}
-      <AudioPlayer ref={audioRef} />
-      
-      {/* Auto-play - simple auto-scroll */}
-      <AutoPlay ref={autoPlayRef} speed={600} />
-      
-      {/* Tag Filter - bottom left popout */}
-      <TagFilter 
-        activeTags={activeTags} 
+      {/* Bottom-left control stack (audio, auto-scroll, filter) */}
+      <ControlStack
+        audioRef={audioRef}
+        autoPlayRef={autoPlayRef}
+        activeTags={activeTags}
         onTagsChange={setActiveTags}
         totalEvents={TIMELINE_DATA.length}
         filteredCount={filteredNodes.length}
@@ -142,35 +128,23 @@ function App() {
               A complete history of Ethereum's evolution — from genesis to the present
             </p>
             
-            {/* Centered play button to start experience */}
-            {!experienceStarted ? (
-              <button
-                onClick={startExperience}
-                className="group mx-auto w-20 h-20 rounded-full bg-[var(--eth-purple)] hover:bg-[var(--eth-purple-light)] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
-                title="Start the Journey"
+            {/* Scroll indicator */}
+            <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
+              <span>Scroll through history</span>
+              <svg 
+                className="w-5 h-5 animate-bounce" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                <svg className="w-10 h-10 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-            ) : (
-              <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
-                <span>Scroll to explore</span>
-                <svg 
-                  className="w-5 h-5 animate-bounce" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                  />
-                </svg>
-              </div>
-            )}
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+                />
+              </svg>
+            </div>
           </div>
         </section>
 

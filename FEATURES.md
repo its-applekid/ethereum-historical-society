@@ -241,8 +241,8 @@ Sources:
 
 **Art/NFTs:**
 - Beeple's Everydays
-- CryptoPunks launch
-- Art Blocks generative art
+- CryptoPunks launch (already in timeline)
+- Art Blocks generative art (added: Art Blocks Launch, Nov 2020)
 
 *Goal: This isn't just a technical timeline — it's a celebration of Ethereum culture.*
 
@@ -312,7 +312,7 @@ For each event, find:
 - [x] **13. Staking Milestones** — Added 500k validators (Jan 2023) and 1M validators (March 2024)
 - [x] **14. DeFi TVL Milestones** — Added: $1B (Feb 2020), $10B (Sept 2020), $100B (Oct 2021), ATH ~$177B (Nov 2021)
 - [x] **15. MEV Timeline** — Added Flashbots launch (Nov 2020) and MEV-Boost (Sept 2022)
-- [ ] **16. L2 Security Stages** — Events when Optimism/Arbitrum/etc. reached Stage 1, Stage 2.
+- [x] **16. L2 Security Stages** — Added Optimism Stage 1 (June 2024), Arbitrum Stage 1/BoLD (Feb 2025)
 - [x] **17. Adoption Milestones** — Added PayPal PYUSD (Aug 2023), Spot ETH ETFs (July 2024)
 
 ### Priority 5: Protocol Deep Links
@@ -364,8 +364,9 @@ Events to add:
 - [x] **ETH Denver** — Added ETH Denver 2020 and 2024
 - [x] **DevConnect** — Amsterdam 2022, Istanbul 2023, Argentina 2025
 - [x] **ETHGlobal hackathons** — Added ETHWaterloo 2017, ETHSanFrancisco 2018, ETHNewYork 2019, ETHBerlin 2018
-- [ ] **EthereumConf** — Early conferences
-- [x] **Edcon** — Community dev conference (added 2017 Paris, 2024 Tokyo)
+- [ ] **EthereumConf** — Early conferences (may not exist as distinct series)
+- [x] **EDCON** — Added EDCON 2017 (Paris), EDCON 2018 (Toronto), EDCON 2024 (Tokyo)
+- [x] **DappCon** — Added DappCon 2018, DappCon 2019 (Berlin)
 - [ ] **More regional events** — Ongoing additions
 
 Include: dates, locations, notable announcements, links to recordings/recaps.
