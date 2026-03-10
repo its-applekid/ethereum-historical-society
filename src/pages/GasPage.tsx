@@ -85,10 +85,20 @@ const ACTIONS = [
   { id: 'morpho_deposit', name: 'Morpho Deposit', gasEstimate: 200000 },
 ]
 
-// Estimated ETH price (could fetch from CoinGecko in production)
-const ETH_PRICE_USD = 2045
+// ETH price fetched from Coinbase API (free, no API key required)
 
-async function estimateGas(chain: Chain, gasLimit: number): Promise<GasEstimate> {
+async function fetchEthPrice(): Promise<number> {
+  try {
+    const response = await fetch('https://api.coinbase.com/v2/prices/ETH-USD/spot')
+    const data = await response.json()
+    return parseFloat(data.data.amount)
+  } catch (error) {
+    console.warn('Failed to fetch ETH price from Coinbase, using fallback:', error)
+    return 2045 // fallback
+  }
+}
+
+async function estimateGas(chain: Chain, gasLimit: number, ethPriceUSD: number): Promise<GasEstimate> {
   try {
     // Fetch current gas price
     const gasPriceResponse = await fetch(chain.rpcUrl, {
@@ -113,7 +123,7 @@ async function estimateGas(chain: Chain, gasLimit: number): Promise<GasEstimate>
     // Calculate cost
     const costWei = gasPriceWei * BigInt(gasLimit)
     const costETH = Number(costWei) / 1e18
-    const costUSD = costETH * ETH_PRICE_USD
+    const costUSD = costETH * ethPriceUSD
 
     return {
       action: '',
@@ -139,16 +149,22 @@ async function estimateGas(chain: Chain, gasLimit: number): Promise<GasEstimate>
 export function GasPage() {
   const [estimates, setEstimates] = useState<Record<string, Record<string, GasEstimate>>>({})
   const [loading, setLoading] = useState(true)
+  const [ethPrice, setEthPrice] = useState<number>(2045) // fallback price
 
   useEffect(() => {
     async function fetchEstimates() {
       setLoading(true)
+      
+      // Fetch ETH price first
+      const currentEthPrice = await fetchEthPrice()
+      setEthPrice(currentEthPrice)
+      
       const newEstimates: Record<string, Record<string, GasEstimate>> = {}
 
       for (const chain of CHAINS) {
         newEstimates[chain.id] = {}
         for (const action of ACTIONS) {
-          const estimate = await estimateGas(chain, action.gasEstimate)
+          const estimate = await estimateGas(chain, action.gasEstimate, currentEthPrice)
           newEstimates[chain.id][action.id] = {
             ...estimate,
             action: action.name,
@@ -189,7 +205,7 @@ export function GasPage() {
             Real-time gas costs across Ethereum and Layer 2s
           </p>
           <p className="text-sm text-[var(--text-muted)]">
-            Updated every 30 seconds • ETH @ ${ETH_PRICE_USD.toLocaleString()}
+            Updated every 30 seconds • ETH @ ${ethPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
         </header>
 
