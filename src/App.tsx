@@ -10,6 +10,7 @@ import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
 import { EthereumLogo3D } from './components/EthereumLogo3D'
 import { EthSupplyChart } from './components/EthSupplyChart'
+import { L2TransactionCrossing } from './components/L2TransactionCrossing'
 import { TIMELINE_DATA } from './data/timeline'
 import type { TimelineNode, Tag } from './data/timeline'
 
@@ -153,6 +154,13 @@ function App() {
         <section className="px-8 py-12 relative z-10">
           <div className="max-w-4xl mx-auto">
             <EthSupplyChart />
+          </div>
+        </section>
+
+        {/* L2 vs L1 Transaction Crossing - Scaling Success */}
+        <section className="px-8 py-12 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <L2TransactionCrossing />
           </div>
         </section>
 
