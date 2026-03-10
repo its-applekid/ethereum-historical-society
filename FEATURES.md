@@ -2,6 +2,13 @@
 
 *Detailed feature list from vision sessions. Keep this up to date.*
 
+## App Structure (Multi-page as of 2026-03-10)
+
+**Three pages:**
+1. **Timeline** (/) — Educational, historical, artistic experience of Ethereum's evolution
+2. **Metrics** (/metrics) — Economic and scaling charts (supply, L2 crossing, etc.)
+3. **Gas** (/gas) — Live gas tracker across Ethereum L1 and 7 L2s with RPC estimates
+
 ## Core Concept
 
 **Three-part nature:**
@@ -10,6 +17,25 @@
 3. **Art** — visually compelling, almost meditative experience
 
 **Key insight:** The blockchain IS a clock. Everything indexed by block numbers, not just dates.
+
+---
+
+## Gas Tracker Features (Live as of 2026-03-10)
+
+### Live Gas Estimates
+- [x] **Multi-chain support** — Ethereum L1, Optimism, Arbitrum, Base, zkSync Era, Linea, Scroll
+- [x] **RPC integration** — Real-time `eth_gasPrice` calls to public RPCs
+- [x] **Action simulations** — ETH transfer, ERC-20 transfer, Uniswap swap, Morpho deposit
+- [x] **Cost display** — Shows cost in both ETH and USD for each action/chain combination
+- [x] **Auto-refresh** — Updates every 30 seconds
+- [x] **Comparative view** — Table layout makes L1 vs L2 costs immediately obvious
+
+### Future Enhancements
+- [ ] Historical gas price charts per chain
+- [ ] Gas alerts (notify when L1 gas drops below threshold)
+- [ ] Custom action builder (user inputs contract + calldata)
+- [ ] More L2s (Blast, Mantle, Polygon zkEVM, Starknet)
+- [ ] Gas optimization tips per chain
 
 ---
 
