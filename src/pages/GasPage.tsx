@@ -275,51 +275,6 @@ export function GasPage() {
             </tbody>
           </table>
         </div>
-
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[var(--bg-secondary)] rounded-lg p-6 border border-[var(--bg-tertiary)]">
-            <h3 className="text-lg font-medium mb-4">💡 Understanding Gas</h3>
-            <ul className="text-sm text-[var(--text-muted)] space-y-2">
-              <li>• <strong>Gas Limit:</strong> Maximum units of gas an operation can use</li>
-              <li>• <strong>Gas Price:</strong> Price per unit (in gwei: 1 gwei = 0.000000001 ETH)</li>
-              <li>• <strong>Total Cost:</strong> Gas Limit × Gas Price = Transaction fee</li>
-              <li>• <strong>L2 Savings:</strong> Rollups bundle many transactions, reducing per-tx cost</li>
-            </ul>
-          </div>
-
-          <div className="bg-[var(--bg-secondary)] rounded-lg p-6 border border-[var(--bg-tertiary)]">
-            <h3 className="text-lg font-medium mb-4">🔗 Supported Chains</h3>
-            <div className="space-y-2">
-              {CHAINS.map(chain => (
-                <div key={chain.id} className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <div 
-                      className="w-2 h-2 rounded-full" 
-                      style={{ backgroundColor: chain.color }}
-                    />
-                    <span>{chain.name}</span>
-                  </div>
-                  <a 
-                    href={chain.explorer}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--eth-purple)] hover:underline"
-                  >
-                    Explorer ↗
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 text-center text-sm text-[var(--text-muted)]">
-          <p>
-            Gas prices fetched from public RPCs. Estimates are approximate.
-            <br />
-            Actual costs may vary based on network congestion and transaction complexity.
-          </p>
-        </div>
       </div>
     </main>
   )

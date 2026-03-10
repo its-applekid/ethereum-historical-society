@@ -23,17 +23,6 @@ export function MetricsPage() {
           <h2 className="text-2xl font-bold mb-6">📈 Scaling Success</h2>
           <L2TransactionCrossing />
         </section>
-
-        <section className="bg-[var(--bg-secondary)] rounded-lg p-6 border border-[var(--bg-tertiary)]">
-          <h3 className="text-lg font-medium mb-4">More Metrics Coming Soon</h3>
-          <ul className="text-[var(--text-muted)] space-y-2">
-            <li>• DeFi TVL "Water Level" visualization</li>
-            <li>• Validator growth chart (21k → 1M+)</li>
-            <li>• Client diversity evolution</li>
-            <li>• Gas limit growth band</li>
-            <li>• Censorship resistance tracking</li>
-          </ul>
-        </section>
       </div>
     </main>
   )
