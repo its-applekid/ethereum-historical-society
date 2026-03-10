@@ -1,0 +1,81 @@
+{
+  "comment": "Historic gas prices for key milestone blocks. avgGasPrice in gwei, baseFee only present post-London (block 12965000). Run 'ETHERSCAN_API_KEY=xxx npm run fetch-gas' to fetch precise data.",
+  "1": {
+    "timestamp": 1438269988,
+    "avgGasPrice": 0
+  },
+  "200000": {
+    "timestamp": 1442429110,
+    "avgGasPrice": 20
+  },
+  "1150000": {
+    "timestamp": 1457981393,
+    "avgGasPrice": 22
+  },
+  "1920000": {
+    "timestamp": 1469020840,
+    "avgGasPrice": 25
+  },
+  "4370000": {
+    "timestamp": 1508131331,
+    "avgGasPrice": 18
+  },
+  "4605000": {
+    "timestamp": 1511926523,
+    "avgGasPrice": 185
+  },
+  "7280000": {
+    "timestamp": 1551383524,
+    "avgGasPrice": 12
+  },
+  "9069000": {
+    "timestamp": 1575764709,
+    "avgGasPrice": 15
+  },
+  "9200000": {
+    "timestamp": 1577953849,
+    "avgGasPrice": 14
+  },
+  "10300000": {
+    "timestamp": 1592179200,
+    "avgGasPrice": 35
+  },
+  "12020000": {
+    "timestamp": 1615464000,
+    "avgGasPrice": 130
+  },
+  "12244000": {
+    "timestamp": 1618481223,
+    "avgGasPrice": 52
+  },
+  "12965000": {
+    "timestamp": 1628166822,
+    "avgGasPrice": 38.5,
+    "baseFee": 32.1
+  },
+  "13773000": {
+    "timestamp": 1639076595,
+    "avgGasPrice": 85,
+    "baseFee": 78
+  },
+  "15050000": {
+    "timestamp": 1656586444,
+    "avgGasPrice": 12,
+    "baseFee": 10.2
+  },
+  "15537394": {
+    "timestamp": 1663224179,
+    "avgGasPrice": 16,
+    "baseFee": 14.5
+  },
+  "17034870": {
+    "timestamp": 1681338455,
+    "avgGasPrice": 22,
+    "baseFee": 20.3
+  },
+  "19426587": {
+    "timestamp": 1710338135,
+    "avgGasPrice": 35,
+    "baseFee": 32.8
+  }
+}
