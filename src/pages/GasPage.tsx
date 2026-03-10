@@ -83,6 +83,8 @@ const ACTIONS = [
   { id: 'erc20_transfer', name: 'ERC-20 Transfer', gasEstimate: 65000 },
   { id: 'uniswap_swap', name: 'Uniswap Swap', gasEstimate: 150000 },
   { id: 'morpho_deposit', name: 'Morpho Deposit', gasEstimate: 200000 },
+  { id: 'bridge_deposit', name: 'Bridge to L2', gasEstimate: 120000, l1Only: true },
+  { id: 'bridge_withdraw', name: 'Bridge to L1', gasEstimate: 250000, l2Only: true },
 ]
 
 // ETH price fetched from Coinbase API (free, no API key required)
@@ -181,7 +183,17 @@ export function GasPage() {
 
       for (const chain of CHAINS) {
         newEstimates[chain.id] = {}
+        const isL1 = chain.id === 'ethereum'
+        
         for (const action of ACTIONS) {
+          // Skip if action doesn't apply to this chain type
+          if ((action as any).l1Only && !isL1) {
+            continue // Will show N/A in the table
+          }
+          if ((action as any).l2Only && isL1) {
+            continue // Will show N/A in the table
+          }
+          
           const estimate = await estimateGas(chain, action.gasEstimate, currentEthPrice)
           newEstimates[chain.id][action.id] = {
             ...estimate,
@@ -222,15 +234,28 @@ export function GasPage() {
                 <th className="text-left py-4 px-4 font-medium text-[var(--text-muted)]">
                   Chain
                 </th>
-                {ACTIONS.map(action => (
-                  <th key={action.id} className="text-center py-4 px-4 font-medium text-[var(--text-muted)]">
-                    {action.name}
-                    <br />
-                    <span className="text-xs font-normal opacity-60">
-                      (~{(action.gasEstimate / 1000).toFixed(0)}k gas)
-                    </span>
-                  </th>
-                ))}
+                {ACTIONS.map(action => {
+                  const actionTyped = action as any
+                  const tooltip = actionTyped.l1Only 
+                    ? 'Deposit from Ethereum to L2 (happens on L1)'
+                    : actionTyped.l2Only
+                    ? 'Withdraw from L2 to Ethereum (initiate on L2 + prove on L1)'
+                    : ''
+                  
+                  return (
+                    <th 
+                      key={action.id} 
+                      className="text-center py-4 px-4 font-medium text-[var(--text-muted)]"
+                      title={tooltip}
+                    >
+                      {action.name}
+                      <br />
+                      <span className="text-xs font-normal opacity-60">
+                        (~{(action.gasEstimate / 1000).toFixed(0)}k gas)
+                      </span>
+                    </th>
+                  )
+                })}
               </tr>
             </thead>
             <tbody>
@@ -254,6 +279,18 @@ export function GasPage() {
                     </div>
                   </td>
                   {ACTIONS.map(action => {
+                    const isL1 = chain.id === 'ethereum'
+                    const actionTyped = action as any
+                    
+                    // Show N/A if action doesn't apply to this chain
+                    if ((actionTyped.l1Only && !isL1) || (actionTyped.l2Only && isL1)) {
+                      return (
+                        <td key={action.id} className="text-center py-4 px-4">
+                          <span className="text-[var(--text-muted)] text-sm">N/A</span>
+                        </td>
+                      )
+                    }
+                    
                     const estimate = estimates[chain.id]?.[action.id]
                     if (!estimate) {
                       return <td key={action.id} className="text-center py-4 px-4">—</td>
