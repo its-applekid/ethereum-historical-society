@@ -14,8 +14,8 @@ function Navigation() {
   ]
 
   return (
-    <nav className="fixed top-20 left-0 right-0 z-30 bg-[var(--bg-primary)]/80 backdrop-blur-sm border-b border-[var(--bg-tertiary)]">
-      <div className="max-w-6xl mx-auto px-8 py-3 flex items-center gap-6">
+    <nav className="sticky top-[4rem] left-0 right-0 z-30 bg-[var(--bg-primary)]/80 backdrop-blur-sm border-b border-[var(--bg-tertiary)]">
+      <div className="max-w-6xl mx-auto px-8 py-2 flex items-center">
         {links.map(link => {
           const isActive = location.pathname === link.path
           return (
