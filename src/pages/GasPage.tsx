@@ -169,13 +169,10 @@ async function estimateGas(chain: Chain, gasLimit: number, ethPriceUSD: number):
 
 export function GasPage() {
   const [estimates, setEstimates] = useState<Record<string, Record<string, GasEstimate>>>({})
-  const [loading, setLoading] = useState(true)
   const [ethPrice, setEthPrice] = useState<number>(2045) // fallback price
 
   useEffect(() => {
     async function fetchEstimates() {
-      setLoading(true)
-      
       // Fetch ETH price first
       const currentEthPrice = await fetchEthPrice()
       setEthPrice(currentEthPrice)
@@ -194,26 +191,14 @@ export function GasPage() {
       }
 
       setEstimates(newEstimates)
-      setLoading(false)
     }
 
     fetchEstimates()
     
-    // Refresh every 30 seconds
-    const interval = setInterval(fetchEstimates, 30000)
+    // Refresh every minute
+    const interval = setInterval(fetchEstimates, 60000)
     return () => clearInterval(interval)
   }, [])
-
-  if (loading) {
-    return (
-      <main className="min-h-screen py-12 px-8 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--eth-purple)] mx-auto mb-4"></div>
-          <p className="text-[var(--text-muted)]">Fetching live gas prices from RPCs...</p>
-        </div>
-      </main>
-    )
-  }
 
   return (
     <main className="min-h-screen py-12 px-8">
@@ -226,7 +211,7 @@ export function GasPage() {
             Real-time gas costs across Ethereum and Layer 2s
           </p>
           <p className="text-sm text-[var(--text-muted)]">
-            Updated every 30 seconds • ETH @ ${ethPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            Updated every minute • ETH @ ${ethPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
         </header>
 
