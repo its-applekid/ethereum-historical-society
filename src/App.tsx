@@ -9,6 +9,7 @@ import { ControlStack } from './components/ControlStack'
 import { LiveBlockFeed } from './components/LiveBlockFeed'
 import { FutureHistory } from './components/FutureHistory'
 import { EthereumLogo3D } from './components/EthereumLogo3D'
+import { EthSupplyChart } from './components/EthSupplyChart'
 import { TIMELINE_DATA } from './data/timeline'
 import type { TimelineNode, Tag } from './data/timeline'
 
@@ -145,6 +146,13 @@ function App() {
                 />
               </svg>
             </div>
+          </div>
+        </section>
+
+        {/* ETH Supply Chart - Economic Context */}
+        <section className="px-8 py-12 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <EthSupplyChart />
           </div>
         </section>
 
