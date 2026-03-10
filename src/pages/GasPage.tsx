@@ -23,7 +23,7 @@ const CHAINS: Chain[] = [
   {
     id: 'ethereum',
     name: 'Ethereum',
-    rpcUrl: 'https://eth.llamarpc.com',
+    rpcUrl: 'https://ethereum-rpc.publicnode.com',
     color: '#627EEA',
     nativeCurrency: 'ETH',
     explorer: 'https://etherscan.io',
@@ -31,7 +31,7 @@ const CHAINS: Chain[] = [
   {
     id: 'optimism',
     name: 'Optimism',
-    rpcUrl: 'https://mainnet.optimism.io',
+    rpcUrl: 'https://optimism-rpc.publicnode.com',
     color: '#FF0420',
     nativeCurrency: 'ETH',
     explorer: 'https://optimistic.etherscan.io',
@@ -39,7 +39,7 @@ const CHAINS: Chain[] = [
   {
     id: 'arbitrum',
     name: 'Arbitrum One',
-    rpcUrl: 'https://arb1.arbitrum.io/rpc',
+    rpcUrl: 'https://arbitrum-one-rpc.publicnode.com',
     color: '#28A0F0',
     nativeCurrency: 'ETH',
     explorer: 'https://arbiscan.io',
@@ -47,7 +47,7 @@ const CHAINS: Chain[] = [
   {
     id: 'base',
     name: 'Base',
-    rpcUrl: 'https://mainnet.base.org',
+    rpcUrl: 'https://base-rpc.publicnode.com',
     color: '#0052FF',
     nativeCurrency: 'ETH',
     explorer: 'https://basescan.org',
@@ -63,7 +63,7 @@ const CHAINS: Chain[] = [
   {
     id: 'linea',
     name: 'Linea',
-    rpcUrl: 'https://rpc.linea.build',
+    rpcUrl: 'https://linea-rpc.publicnode.com',
     color: '#121212',
     nativeCurrency: 'ETH',
     explorer: 'https://lineascan.build',
@@ -71,7 +71,7 @@ const CHAINS: Chain[] = [
   {
     id: 'scroll',
     name: 'Scroll',
-    rpcUrl: 'https://rpc.scroll.io',
+    rpcUrl: 'https://scroll-rpc.publicnode.com',
     color: '#FFEEDA',
     nativeCurrency: 'ETH',
     explorer: 'https://scrollscan.com',
@@ -100,7 +100,10 @@ async function fetchEthPrice(): Promise<number> {
 
 async function estimateGas(chain: Chain, gasLimit: number, ethPriceUSD: number): Promise<GasEstimate> {
   try {
-    // Fetch current gas price
+    // Fetch current gas price with timeout
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000)
+    
     const gasPriceResponse = await fetch(chain.rpcUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -110,11 +113,23 @@ async function estimateGas(chain: Chain, gasLimit: number, ethPriceUSD: number):
         params: [],
         id: 1,
       }),
+      signal: controller.signal,
     })
+    
+    clearTimeout(timeoutId)
+    
+    if (!gasPriceResponse.ok) {
+      throw new Error(`HTTP ${gasPriceResponse.status}`)
+    }
 
     const gasPriceData = await gasPriceResponse.json()
     if (gasPriceData.error) {
+      console.error(`RPC error for ${chain.name}:`, gasPriceData.error)
       throw new Error(gasPriceData.error.message)
+    }
+
+    if (!gasPriceData.result) {
+      throw new Error('No result from RPC')
     }
 
     const gasPriceWei = BigInt(gasPriceData.result)
@@ -125,15 +140,21 @@ async function estimateGas(chain: Chain, gasLimit: number, ethPriceUSD: number):
     const costETH = Number(costWei) / 1e18
     const costUSD = costETH * ethPriceUSD
 
+    // Format with appropriate precision
+    const formattedCostUSD = costUSD < 0.01 ? costUSD.toFixed(4) : costUSD.toFixed(2)
+    const formattedGasPrice = gasPriceGwei < 0.01 ? gasPriceGwei.toFixed(4) : gasPriceGwei.toFixed(2)
+    const formattedCostETH = costETH < 0.000001 ? costETH.toFixed(9) : costETH.toFixed(6)
+
     return {
       action: '',
       gasLimit,
-      gasPrice: gasPriceGwei.toFixed(2),
-      costETH: costETH.toFixed(6),
-      costUSD: costUSD.toFixed(2),
+      gasPrice: formattedGasPrice,
+      costETH: formattedCostETH,
+      costUSD: formattedCostUSD,
       loading: false,
     }
   } catch (error) {
+    console.error(`Gas estimation failed for ${chain.name}:`, error)
     return {
       action: '',
       gasLimit,
