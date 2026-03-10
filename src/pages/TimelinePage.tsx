@@ -96,7 +96,7 @@ export function TimelinePage() {
         </div>
 
         <section className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center relative z-10">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto bg-[var(--bg-primary)]/70 backdrop-blur-sm rounded-2xl p-8">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent">
               The Ethereum Archive
             </h1>
