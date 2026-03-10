@@ -100,8 +100,8 @@ export function TimelinePage() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent">
               The Ethereum Archive
             </h1>
-            <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-8">
-              A complete history of Ethereum's evolution — from genesis to the present
+            <p className="text-xl md:text-2xl text-[var(--text-primary)] mb-8">
+              A complete history of Ethereum's evolution from genesis to the present
             </p>
             
             <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
