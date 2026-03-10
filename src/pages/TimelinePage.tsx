@@ -97,16 +97,22 @@ export function TimelinePage() {
 
         <section className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
-            <div className="inline-block px-6 py-3 rounded-xl bg-[var(--bg-primary)]/85 backdrop-blur-sm mb-6">
-              <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent">
-                The Ethereum Archive
-              </h1>
-            </div>
-            <div className="inline-block px-6 py-2 rounded-lg bg-[var(--bg-primary)]/85 backdrop-blur-sm mb-8">
-              <p className="text-xl md:text-2xl text-[var(--text-primary)]">
-                A complete history of Ethereum's evolution from genesis to the present
-              </p>
-            </div>
+            <h1 
+              className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[var(--eth-purple)] to-[var(--eth-purple-light)] bg-clip-text text-transparent"
+              style={{
+                filter: 'drop-shadow(0 0 8px var(--bg-primary)) drop-shadow(0 0 16px var(--bg-primary)) drop-shadow(0 0 24px var(--bg-primary))'
+              }}
+            >
+              The Ethereum Archive
+            </h1>
+            <p 
+              className="text-xl md:text-2xl text-[var(--text-primary)] mb-8"
+              style={{
+                textShadow: '0 0 8px var(--bg-primary), 0 0 16px var(--bg-primary), 0 0 24px var(--bg-primary), 0 0 32px var(--bg-primary)'
+              }}
+            >
+              A complete history of Ethereum's evolution from genesis to the present
+            </p>
             
             <div className="flex items-center justify-center gap-2 text-[var(--text-muted)]">
               <span>Scroll through history</span>
