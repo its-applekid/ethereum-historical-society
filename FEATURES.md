@@ -293,7 +293,7 @@ For each event, find:
 ### Priority 1: Core Context (High Impact, Every Event Benefits)
 - [x] **1. Historic Gas + USD Context** — In detail view: avg gas price at that block + USD value of a typical tx. Makes every event tangible. (Implemented 2026-03-10 with 17 milestone blocks. Expand with `npm run fetch-gas` + Etherscan key)
 - [x] **2. Block Links to Etherscan** — Every blockNumber becomes a clickable link in DetailPanel. ✓
-- [ ] **3. ETH Supply Animation** — Animate supply over time: inflationary PoW era, deflationary post-Merge. The economic narrative of Ethereum. (ultrasound.money)
+- [x] **3. ETH Supply Animation** — Canvas chart showing supply growth from 72M genesis to ~120M present. Color-coded inflationary/deflationary periods. Highlights The Merge inflection point. (Implemented 2026-03-10)
 - [x] **4. ETH Burned Counter** — Running total of ETH burned since EIP-1559. Dramatic visualization of value accrual.
 
 ### Priority 2: The Scaling Story (Visually Compelling)
