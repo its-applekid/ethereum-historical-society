@@ -2,8 +2,6 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { Timeline } from '../components/Timeline'
 import { DetailPanel } from '../components/DetailPanel'
 import { L2Chains } from '../components/L2Chains'
-import { GasLimitBand } from '../components/GasLimitBand'
-import { ValidatorGrowth } from '../components/ValidatorGrowth'
 import type { AudioPlayerRef } from '../components/AudioPlayer'
 import type { AutoPlayRef } from '../components/AutoPlay'
 import { ControlStack } from '../components/ControlStack'
@@ -92,12 +90,9 @@ export function TimelinePage() {
         filteredCount={filteredNodes.length}
       />
       
-      <ValidatorGrowth />
-      
       <main className="relative" ref={timelineRef}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <L2Chains progress={scrollProgress} />
-          <GasLimitBand />
         </div>
 
         <section className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center relative z-10">
