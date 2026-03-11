@@ -32,6 +32,13 @@ export type Tag =
   | 'tvl'        // TVL milestones
   | 'blobs'      // Blob/4844 milestones
 
+export type RoadmapPhase = 
+  | 'merge'      // PoS transition (complete)
+  | 'surge'      // Scalability, sharding, rollups
+  | 'verge'      // Verkle trees, statelessness
+  | 'purge'      // Simplification, history expiry
+  | 'splurge'    // Everything else (AA, PBS, etc.)
+
 export interface TimelineLink {
   label: string
   url: string
@@ -51,6 +58,8 @@ export interface TimelineNode {
   relatedEips?: number[]
   content?: string
   tags?: Tag[]
+  /** Ethereum roadmap phase (Merge/Surge/Verge/Purge/Splurge) */
+  roadmapPhase?: RoadmapPhase
   /** URL to primary source (video, blog post, etc.) */
   sourceUrl?: string
   /** Multiple reference links */
@@ -853,6 +862,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `The Beacon Chain launched with 21,063 validators staking 674,000 ETH. This separate chain would run PoS consensus in parallel with mainnet PoW until The Merge.`,
     tags: ['protocol'],
+    roadmapPhase: 'merge',
     imageUrl: 'https://ethereum.org/static/28214bb68eb5445dcb063a72535bc90c/9c24c/pos-consensus-layer.png',
     links: [
       { label: 'Beacon Chain Genesis', url: 'https://beaconscan.com/slot/0' },
@@ -954,6 +964,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `Optimism launched the first optimistic rollup on mainnet, demonstrating that rollups could provide 10-100x cost reduction while maintaining Ethereum's security guarantees.`,
     tags: ['scaling'],
+    roadmapPhase: 'surge',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Optimism_Logo.svg/1200px-Optimism_Logo.svg.png',
     links: [
       { label: 'L2Beat: Optimism', url: 'https://l2beat.com/scaling/projects/optimism' },
@@ -972,6 +983,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `Arbitrum One launched as an optimistic rollup with a focus on EVM compatibility. It quickly grew to become the largest L2 by total value locked, attracting major DeFi protocols.`,
     tags: ['scaling'],
+    roadmapPhase: 'surge',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Arbitrum_Logo.svg/1200px-Arbitrum_Logo.svg.png',
     links: [
       { label: 'L2Beat: Arbitrum', url: 'https://l2beat.com/scaling/projects/arbitrum' },
@@ -1081,6 +1093,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `The Merge was Ethereum's most significant upgrade, transitioning from energy-intensive Proof of Work to Proof of Stake. The execution layer (mainnet) merged with the Beacon Chain consensus layer. ETH issuance dropped ~90% and energy consumption dropped 99.95%.`,
     tags: ['protocol'],
+    roadmapPhase: 'merge',
     imageUrl: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80',
     links: [
       { label: 'Last PoW Block', url: 'https://etherscan.io/block/15537393' },
@@ -1129,6 +1142,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     relatedEips: [4337],
     content: `EIP-4337 introduced account abstraction to Ethereum without requiring protocol changes. It enables smart contract wallets with features like social recovery, gas sponsorship, and batched transactions. Over 26 million smart wallets have been created using this standard, dramatically improving user experience.`,
     tags: ['protocol', 'adoption'],
+    roadmapPhase: 'splurge',
     links: [
       { label: 'EIP-4337', url: 'https://eips.ethereum.org/EIPS/eip-4337' },
       { label: 'ethereum.org Account Abstraction', url: 'https://ethereum.org/roadmap/account-abstraction/' },
@@ -1188,6 +1202,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `Base, built on Optimism's OP Stack, marked a major exchange entering L2s. As Coinbase's onchain platform, it brought mainstream exposure and signaled institutional acceptance of Ethereum's rollup-centric future.`,
     tags: ['scaling'],
+    roadmapPhase: 'surge',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Base_%28blockchain%29_logo.svg/1200px-Base_%28blockchain%29_logo.svg.png',
     links: [
       { label: 'L2Beat: Base', url: 'https://l2beat.com/scaling/projects/base' },
@@ -1206,6 +1221,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'major',
     content: `zkSync Era launched the first zkEVM — a ZK rollup with full EVM compatibility. Unlike optimistic rollups, ZK rollups provide instant finality through validity proofs. This was a major milestone for ZK technology.`,
     tags: ['scaling'],
+    roadmapPhase: 'surge',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/ZkSync_logo.svg/1200px-ZkSync_logo.svg.png',
     links: [
       { label: 'L2Beat: zkSync Era', url: 'https://l2beat.com/scaling/projects/zksync-era' },
@@ -1225,6 +1241,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'significant',
     content: `Linea, developed by ConsenSys, launched as a Type 2 zkEVM rollup. It emphasized developer experience and seamless migration from Ethereum mainnet, leveraging ConsenSys's existing tooling ecosystem including MetaMask and Infura integrations.`,
     tags: ['scaling'],
+    roadmapPhase: 'surge',
     links: [
       { label: 'L2Beat: Linea', url: 'https://l2beat.com/scaling/projects/linea' },
       { label: 'Linea Official', url: 'https://linea.build/' },
@@ -1243,6 +1260,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     importance: 'significant',
     content: `Scroll launched as a zkEVM rollup with a focus on bytecode-level EVM equivalence, meaning existing Ethereum contracts can deploy without any modifications. This approach prioritized maximum compatibility over performance optimizations.`,
     tags: ['scaling'],
+    roadmapPhase: 'surge',
     links: [
       { label: 'L2Beat: Scroll', url: 'https://l2beat.com/scaling/projects/scroll' },
       { label: 'Scroll Official', url: 'https://scroll.io/' },
@@ -1263,6 +1281,7 @@ export const TIMELINE_DATA: TimelineNode[] = [
     relatedEips: [4844, 1153, 4788, 5656, 6780, 7044, 7045, 7514, 7516],
     content: `EIP-4844 (Proto-Danksharding) introduced "blob" transactions—a new way for L2s to post data to Ethereum at dramatically lower cost. L2 transaction fees dropped from dollars to cents. This was the first step toward full Danksharding.`,
     tags: ['protocol', 'scaling', 'blobs'],
+    roadmapPhase: 'surge',
     imageUrl: 'https://ethereum.org/static/0657a471c15f9a31a68f5a1dbe0d40c1/4dfdf/docking.png',
     links: [
       { label: 'Forkcast: Dencun', url: 'https://forkcast.org/' },
