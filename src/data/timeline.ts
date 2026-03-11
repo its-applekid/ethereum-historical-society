@@ -1085,6 +1085,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     links: [
       { label: 'Last PoW Block', url: 'https://etherscan.io/block/15537393' },
       { label: 'First PoS Block', url: 'https://etherscan.io/block/15537394' },
+      { label: 'Beacon Chain Slot 4700013', url: 'https://beaconcha.in/slot/4700013' },
+      { label: 'Beacon Chain Epoch 146875', url: 'https://beaconcha.in/epoch/146875' },
       { label: 'ethereum.org Merge Page', url: 'https://ethereum.org/en/roadmap/merge/' },
       { label: 'Vitalik\'s Merge Thread', url: 'https://twitter.com/VitalikButerin/status/1570306185391378434' },
       { label: 'AllCoreDevs #106 (Early Merge Discussion)', url: 'https://github.com/ethereum/pm/blob/master/AllCoreDevs-EL-Meetings/Meeting%20106.md' },
@@ -1149,6 +1151,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     links: [
       { label: 'Forkcast: Shanghai', url: 'https://forkcast.org/' },
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/17034870' },
+      { label: 'Beacon Chain Slot 6209536', url: 'https://beaconcha.in/slot/6209536' },
+      { label: 'Beacon Chain Epoch 194048', url: 'https://beaconcha.in/epoch/194048' },
       { label: 'ethereum.org Withdrawals', url: 'https://ethereum.org/en/staking/withdrawals/' },
       { label: 'EIP-4895 (Withdrawals)', url: 'https://eips.ethereum.org/EIPS/eip-4895' },
       { label: 'AllCoreDevs Meetings', url: 'https://github.com/ethereum/pm/tree/master/AllCoreDevs-EL-Meetings' },
@@ -1264,6 +1268,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
       { label: 'Forkcast: Dencun', url: 'https://forkcast.org/' },
       { label: 'EIP-4844 Spec', url: 'https://eips.ethereum.org/EIPS/eip-4844' },
       { label: 'Etherscan Block', url: 'https://etherscan.io/block/19426587' },
+      { label: 'Beacon Chain Slot 8626176', url: 'https://beaconcha.in/slot/8626176' },
+      { label: 'Beacon Chain Epoch 269568', url: 'https://beaconcha.in/epoch/269568' },
       { label: 'Blob Explorer', url: 'https://blobscan.com/' },
       { label: 'AllCoreDevs #167 (Dencun Planning)', url: 'https://github.com/ethereum/pm/issues/836' },
       { label: 'Dencun Devnet Specs', url: 'https://github.com/ethereum/execution-specs/tree/master/network-upgrades/mainnet-upgrades/cancun.md' },
