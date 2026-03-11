@@ -329,7 +329,7 @@ For each event, find:
 - [x] **8. Gas Limit Growth Band** — Subtle expanding band showing gas limit increasing over time. (Implemented 2026-03-31: Left-side vertical band with milestone markers)
 
 ### Priority 3: Network Health & Decentralization
-- [ ] **9. Validator Growth Chart** — Background viz showing validator count growing from 21k at Beacon launch to 1M+. (Beaconcha.in/Rated)
+- [x] **9. Validator Growth Chart** — Background viz showing validator count growing from 21k at Beacon launch to 1M+. (Implemented 2026-03-31: Right-side panel with dot grid visualization)
 - [ ] **10. Client Diversity Evolution** — Animated pie chart showing client diversity improving (or concerning supermajority periods). (Ethernets/NodeWatch)
 - [x] **11. Uptime Counter** — "Ethereum has been running for X,XXX days without downtime." Pride metric. (ethereumuptime.org)
 - [ ] **12. Censorship Watch** — OFAC-compliant block percentage over time. Important neutrality story. Tornado Cash impact. (MEVWatch)
