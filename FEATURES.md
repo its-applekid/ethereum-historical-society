@@ -345,7 +345,7 @@ For each event, find:
 - [x] **18. ACD Call Links** — Link each hard fork to the AllCoreDevs calls where it was discussed/finalized. (Started: added links for London, Shanghai, Dencun)
 - [ ] **19. EIP Status Tracker** — Show EIP lifecycle (Draft → Review → Final) for related EIPs. (EIPs Insight)
 - [x] **20. Beacon Chain Links** — Post-Merge events link to beacon slot on beaconcha.in. (Implemented 2026-03-31: Added to Merge, Shanghai, Dencun)
-- [ ] **21. Roadmap Tags** — Tag events as Surge/Verge/Purge/Splurge. (ethroadmap.com)
+- [x] **21. Roadmap Tags** — Tag events as Surge/Verge/Purge/Splurge. (Implemented 2026-03-31: Added roadmapPhase field to timeline data, tagged Merge/Surge/Splurge events)
 
 ### Priority 6: Economic Indicators
 - [ ] **22. Stablecoin Supply Growth** — Growing bar for total stablecoin supply on Ethereum. (stablecoins.wtf)
