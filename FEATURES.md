@@ -326,7 +326,7 @@ For each event, find:
 - [x] **5. Blob Bubbles** — Floating translucent bubbles in background, appearing after Dencun. Wobble + float animation. ✓
 - [x] **6. L2 vs L1 Transaction Crossing** — Crossing line chart showing L2 daily txs surpassing L1 (June 2024). Highlights Dencun impact. (Implemented 2026-03-10)
 - [ ] **7. DeFi TVL "Water Level"** — Background visualization of TVL rising like water; dramatic spike during DeFi Summer 2020. (DeFiLlama)
-- [ ] **8. Gas Limit Growth Band** — Subtle expanding band showing gas limit increasing over time. (GasLimit.Pics)
+- [x] **8. Gas Limit Growth Band** — Subtle expanding band showing gas limit increasing over time. (Implemented 2026-03-31: Left-side vertical band with milestone markers)
 
 ### Priority 3: Network Health & Decentralization
 - [ ] **9. Validator Growth Chart** — Background viz showing validator count growing from 21k at Beacon launch to 1M+. (Beaconcha.in/Rated)
