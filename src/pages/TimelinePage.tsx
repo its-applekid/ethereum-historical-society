@@ -3,6 +3,7 @@ import { Timeline } from '../components/Timeline'
 import { DetailPanel } from '../components/DetailPanel'
 import { L2Chains } from '../components/L2Chains'
 import { GasLimitBand } from '../components/GasLimitBand'
+import { ValidatorGrowth } from '../components/ValidatorGrowth'
 import type { AudioPlayerRef } from '../components/AudioPlayer'
 import type { AutoPlayRef } from '../components/AutoPlay'
 import { ControlStack } from '../components/ControlStack'
@@ -90,6 +91,8 @@ export function TimelinePage() {
         totalEvents={TIMELINE_DATA.length}
         filteredCount={filteredNodes.length}
       />
+      
+      <ValidatorGrowth />
       
       <main className="relative" ref={timelineRef}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
