@@ -102,29 +102,8 @@ export const TIMELINE_DATA: TimelineNode[] = [
     relatedEips: [779],
     content: `The Ethereum community voted to hard fork and return the stolen DAO funds. This was controversial as it violated "code is law" principles. Those who disagreed continued the original chain as Ethereum Classic (ETC).`
   },
-  {
-    id: 'gavin-wood-departure',
-    type: 'milestone',
-    date: '2016-01-01',
-    title: 'Gavin Wood Leaves Ethereum Foundation',
-    summary: 'Co-founder and first CTO Gavin Wood departs to found Parity Technologies (later Polkadot).',
-    era: 'homestead',
-    importance: 'significant',
-    content: `Gavin Wood, Ethereum's co-founder and first CTO who created Solidity and authored the Yellow Paper, left the Ethereum Foundation in January 2016 after approximately two years. He went on to found Parity Technologies (originally Ethcore), which developed the Parity Ethereum client and later Polkadot. His departure marked a significant shift in Ethereum's technical leadership.`
-  },
   
   // METROPOLIS ERA
-  {
-    id: 'ens-launch',
-    type: 'milestone',
-    date: '2017-05-04',
-    blockNumber: 3648571,
-    title: 'ENS Launch',
-    summary: 'Ethereum Name Service launches, bringing human-readable names to Ethereum addresses.',
-    era: 'metropolis',
-    importance: 'significant',
-    content: `The Ethereum Name Service (ENS) launched on May 4, 2017 (Star Wars Day) by Nick Johnson and Alex Van de Sande from the Ethereum Foundation. ENS allows users to register .eth names that map to Ethereum addresses, making the network more user-friendly. Initially only names 7+ characters were available via Vickrey auctions to limit risk of system failure.`
-  },
   {
     id: 'byzantium',
     type: 'hard_fork',
