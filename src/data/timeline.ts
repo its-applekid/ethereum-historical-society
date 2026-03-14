@@ -41,6 +41,38 @@ export const ERA_INFO: Record<Era, { name: string; years: string; color: string 
 }
 
 export const TIMELINE_DATA: TimelineNode[] = [
+  // PRE-FRONTIER (2014-2015)
+  {
+    id: 'yellow-paper',
+    type: 'research',
+    date: '2014-04-01',
+    title: 'Yellow Paper Published',
+    summary: 'Gavin Wood publishes the Ethereum Yellow Paper, the formal specification of the EVM.',
+    era: 'frontier',
+    importance: 'major',
+    content: `Gavin Wood authored the Yellow Paper, formally titled "Ethereum: A secure decentralised generalised transaction ledger." This technical specification defined the Ethereum Virtual Machine (EVM) and provided the mathematical foundation for the protocol. The Yellow Paper complemented Vitalik's original whitepaper with precise implementation details.`
+  },
+  {
+    id: 'hoskinson-departure',
+    type: 'controversy',
+    date: '2014-06-01',
+    title: 'Charles Hoskinson Leaves',
+    summary: 'Co-founder Charles Hoskinson departs after dispute over Ethereum being for-profit vs nonprofit.',
+    era: 'frontier',
+    importance: 'significant',
+    content: `Charles Hoskinson, one of Ethereum's co-founders, left the project in June 2014 following disagreements with Vitalik Buterin over the project's direction. Hoskinson advocated for accepting venture capital and running Ethereum as a for-profit entity, while Buterin insisted on a nonprofit foundation model with open-source, decentralized governance. Hoskinson later went on to found Cardano.`
+  },
+  {
+    id: 'olympic-testnet',
+    type: 'milestone',
+    date: '2015-05-09',
+    title: 'Olympic Testnet',
+    summary: 'Final public testnet before Frontier launch, featuring 25,000 ETH bug bounty program.',
+    era: 'frontier',
+    importance: 'significant',
+    content: `The Olympic testnet was Ethereum's pre-release testnet, launched in May 2015 to stress-test the network before the Frontier mainnet launch. It featured a bug bounty program with a total prize fund of up to 25,000 ETH, rewarding developers who found vulnerabilities and helped improve the network. The testnet was named after the upcoming Olympic Games and marked the final phase before production.`
+  },
+  
   // FRONTIER ERA
   {
     id: 'frontier-launch',
