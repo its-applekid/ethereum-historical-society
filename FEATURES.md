@@ -325,7 +325,7 @@ For each event, find:
 ### Priority 2: The Scaling Story (Visually Compelling)
 - [x] **5. Blob Bubbles** — Floating translucent bubbles in background, appearing after Dencun. Wobble + float animation. ✓
 - [x] **6. L2 vs L1 Transaction Crossing** — Crossing line chart showing L2 daily txs surpassing L1 (June 2024). Highlights Dencun impact. (Implemented 2026-03-10)
-- [ ] **7. DeFi TVL "Water Level"** — Background visualization of TVL rising like water; dramatic spike during DeFi Summer 2020. (DeFiLlama)
+- [x] **7. DeFi TVL "Water Level"** — Background visualization of TVL rising like water; dramatic spike during DeFi Summer 2020. (Implemented 2026-03-15)
 - [~] **8. Gas Limit Growth Band** — ~~REMOVED: Too cluttered on timeline view~~
 
 ### Priority 3: Network Health & Decentralization
