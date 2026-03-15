@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { Timeline } from '../components/Timeline'
 import { DetailPanel } from '../components/DetailPanel'
 import { L2Chains } from '../components/L2Chains'
+import { DeFiWaterLevel } from '../components/DeFiWaterLevel'
 import type { AudioPlayerRef } from '../components/AudioPlayer'
 import type { AutoPlayRef } from '../components/AutoPlay'
 import { ControlStack } from '../components/ControlStack'
@@ -80,6 +81,7 @@ export function TimelinePage() {
   return (
     <>
       <EthereumLogo3D />
+      <DeFiWaterLevel />
       
       <ControlStack
         audioRef={audioRef}
